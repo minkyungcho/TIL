@@ -12,11 +12,24 @@ public class MobileTest {
 		Mobile mo[] = new Mobile[2];
 		mo[0] = new Ltab("Ltab", 500, "AP-01");
 		mo[1] = new Otab("Otab", 1000, "AND-20");
-		
+		System.out.println("\tMobile\t\tBattery\t\tOS");
+		System.out.println("---------------------------------------------------------");
 		for(Mobile mob:mo) {
 			System.out.println(mob.toString());
 		}
-		
+		System.out.println("10분 충전");
+		System.out.println("\tMobile\t\tBattery\t\tOS");
+		System.out.println("---------------------------------------------------------");
+		for(Mobile mob:mo) {
+			System.out.println(mob.toString());
+		}
+		System.out.println("5분 통화");
+		System.out.println("\tMobile\t\tBattery\t\tOS");
+		System.out.println("---------------------------------------------------------");
+		for(Mobile mob:mo) {
+			System.out.println(mob.toString());
+		}
+	
 	}
 
 
