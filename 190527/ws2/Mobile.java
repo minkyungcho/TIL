@@ -29,13 +29,10 @@ public abstract class Mobile {
 	public void setOsType(String osType) {
 		this.osType = osType;
 	}
-	
-	
 	@Override
 	public String toString() {
 		return "\t" + mobileName + "\t\t" + batterySize + "\t\t" + osType;
 	}
 	public abstract int operate(int time); // 분단위
 	public abstract int charge(int time); // 분단위
-	
 }

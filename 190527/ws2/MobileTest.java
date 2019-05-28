@@ -17,20 +17,19 @@ public class MobileTest {
 		for(Mobile mob:mo) {
 			System.out.println(mob.toString());
 		}
-		System.out.println("10분 충전");
+		System.out.println("\n10분 충전\n");
 		System.out.println("\tMobile\t\tBattery\t\tOS");
 		System.out.println("---------------------------------------------------------");
 		for(Mobile mob:mo) {
+			mob.charge(10);
 			System.out.println(mob.toString());
 		}
-		System.out.println("5분 통화");
+		System.out.println("\n5분 통화\n");
 		System.out.println("\tMobile\t\tBattery\t\tOS");
 		System.out.println("---------------------------------------------------------");
 		for(Mobile mob:mo) {
+			mob.operate(5);
 			System.out.println(mob.toString());
 		}
-	
 	}
-
-
 }
