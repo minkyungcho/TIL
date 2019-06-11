@@ -44,7 +44,17 @@ public class FactoryDao extends Dao<String,Factory> {
 
 	@Override
 	public void update(Factory v, Connection con) throws Exception {
-		
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(Sql.updateFactory);
+			pstmt.setString(1, v.getFac_loc());
+			pstmt.setString(2, v.getFact_no());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			close(pstmt);
+		}
 		
 	}
 

@@ -46,7 +46,17 @@ public class FactoryBiz extends Biz<String, Factory> {
 
 	@Override
 	public void update(Factory v) throws Exception {
-		
+		Connection con = null;
+		try {
+			con = getCon();
+			dao.update(v, con);
+			con.commit();
+		}catch(Exception e) {
+			con.rollback();
+			throw e;
+		}finally {
+			close(con);
+		}
 	}
 
 	@Override

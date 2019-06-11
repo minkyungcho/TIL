@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import frame.Biz;
 import frame.Dao;
+import vo.Factory;
 import vo.Products;
 
 public class ProductsBiz extends Biz<String, Products> {
@@ -31,20 +32,49 @@ public class ProductsBiz extends Biz<String, Products> {
 
 	@Override
 	public void delete(String k) throws Exception {
-		// TODO Auto-generated method stub
+		Connection con = null;
+		try {
+			con = getCon();
+			dao.delete(k, con);
+			con.commit();
+		}catch(Exception e) {
+			con.rollback();
+			throw e;
+		}finally {
+			close(con);
+		}
 		
 	}
 
 	@Override
 	public void update(Products v) throws Exception {
-		// TODO Auto-generated method stub
-		
+		Connection con = null;
+		try {
+			con = getCon();
+			dao.update(v, con);
+			con.commit();
+		}catch(Exception e) {
+			con.rollback();
+			throw e;
+		}finally {
+			close(con);
+		}
 	}
 
 	@Override
 	public Products select(String k) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = getCon();
+		Products p = null;
+		
+		try {
+			p = dao.select(k, con);	
+		} catch (Exception e) {
+			
+		} finally {
+			close(con);
+		}
+		
+		return p;
 	}
 
 	@Override
