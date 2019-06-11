@@ -67,10 +67,8 @@ public class FactoryDao extends Dao<String,Factory> {
 		try {
 			pstmt = con.prepareStatement(Sql.selectFactory);
 			pstmt.setString(1, k);
-			
 			rs = pstmt.executeQuery();
 			rs.next();
-			
 			f = new Factory(rs.getString("FACTNO"), rs.getString("FACNAME"), rs.getString("FACLOC"));	
 		} catch (Exception e) {
 			throw e;

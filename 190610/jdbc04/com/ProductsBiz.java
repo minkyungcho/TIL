@@ -63,24 +63,48 @@ public class ProductsBiz extends Biz<String, Products> {
 
 	@Override
 	public Products select(String k) throws Exception {
-		Connection con = getCon();
-		Products p = null;
+		Connection con =getCon();
+		Products p=null;
 		
 		try {
-			p = dao.select(k, con);	
-		} catch (Exception e) {
+			p=dao.select(k,con);
 			
-		} finally {
+		}catch(Exception e) {
+			
+		}finally {
 			close(con);
 		}
-		
 		return p;
 	}
 
 	@Override
 	public ArrayList<Products> selectAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = getCon();
+		ArrayList<Products> ps=null;
+		
+		try {
+			ps=dao.selectAll(con);
+		}catch(Exception e) {
+			
+		}finally {
+			close(con);
+		}
+		return ps;
+	}
+
+	public Products max(String k) throws Exception {
+		Connection con =getCon();
+		Products p=null;
+		ProductsDao pdao = (ProductsDao) dao; 
+		try {
+			p=pdao.max(k,con);
+			
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			close(con);
+		}
+		return p;
 	}
 
 }
