@@ -8,9 +8,8 @@ import java.util.ArrayList;
 
 public abstract class Dao<K, V> {
 
-	
 	public void close(PreparedStatement con) {
-		if(con != null) {
+		if (con != null) {
 			try {
 				con.close();
 			} catch (SQLException e) {
@@ -18,9 +17,8 @@ public abstract class Dao<K, V> {
 			}
 		}
 	}
-	
 	public void close(ResultSet con) {
-		if(con != null) {
+		if (con != null) {
 			try {
 				con.close();
 			} catch (SQLException e) {
@@ -28,15 +26,9 @@ public abstract class Dao<K, V> {
 			}
 		}
 	}
-	
-	public abstract void insert(V v,Connection con) throws Exception;
-
-	public abstract void delete(K k,Connection con) throws Exception;
-
-	public abstract void update(V v,Connection con) throws Exception;
-
-	public abstract V select(K k,Connection con) throws Exception;
-
+	public abstract void insert(V v, Connection con) throws Exception;
+	public abstract void delete(K k, Connection con) throws Exception;
+	public abstract void update(V v, Connection con) throws Exception;
+	public abstract V select(K k, Connection con) throws Exception;
 	public abstract ArrayList<V> selectAll(Connection con) throws Exception;
-	
 }
