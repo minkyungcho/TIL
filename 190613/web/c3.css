@@ -1,0 +1,40 @@
+@charset "EUC-KR";
+
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Pacifico&display=swap');
+
+h1{
+	font-family: 'Abril Fatface', cursive;
+	text-shadow: 3px 3px 3px #BDBDBD
+}
+h3{
+	font-family: 'Pacifico', cursive;
+	text-align: center;
+	font-size: 2em;
+	height: 200px;
+	line-height: 200px;
+	border: 2px solid red;
+}
+a {
+	text-decoration: none;
+	color: black;
+	line-height: 100px;
+	border: 1px solid black;
+}
+/* 마우스가 a링크 안에 들어왔을때, 나갔을때*/
+a:hover {
+	background: blue;
+	color: yellow;
+	font-size: 1.5em;
+}
+
+input:focus {
+	background: grey;
+	border: 1px solid black;
+}
+
+div > h3:nth-child(2) {
+	color: red;
+}
+div > :not(.a){
+	color:#FFBA85;
+}

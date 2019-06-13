@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Kumar+One+Outline|Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="tb.css" rel="stylesheet" type="text/css">
+<link href="bt.css" rel="stylesheet" type="text/css">
+
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+ol,ul{
+	list-style: none;
+}
+ul{
+	margin: 0 auto;
+	padding: 10px 0 10px 0;
+	width: 500px;
+	height: 30px;
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
+	line-height: 30px;
+	text-align: center;
+}
+li{
+	display:inline; /* 세로에서 가로로 속성을 바꿔줌 */
+	margin: 0 20px;
+	/* justify-content: space-between; */
+	
+}
+li > a{
+	font-weight: bold;
+}
+li > a:hover{
+	color: grey;
+}
+</style>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<ul>
+	<li><a href="index.html">HOME</a></li>
+	<li><a onclick="window.open('https://www.instagram.com/m1__ng/')" style="cursor:pointer;">INSTAGRAM</a></li>
+	<li><a href="">ABOUT</a></li>
+	<li><a href="mailto:xiuperjjo@naver.com" title="메일 보내기">CONTACT</a></li>
+</ul>
+<table class="t1">
+<thead>
+	<tr><th>NO</th><th>TITLE</th><th>DATE</th><th>SINGER</th></tr>
+</thead>
+<tbody>
+	<tr class="tr" onclick="window.open('https://music.naver.com/album/index.nhn?albumId=643935&trackId=6168128')"><td>1</td><td>어떻게 생각해</td><td>2019-06-13</td><td>CHEESE</td></tr>
+	<tr class="tr" onclick="window.open('https://music.naver.com/album/index.nhn?albumId=2176015&trackId=18855067')"><td>2</td><td>폰서트</td><td>2019-06-13</td><td>10cm</td></tr>
+	<tr class="tr" onclick="window.open('https://music.naver.com/album/index.nhn?albumId=413450&trackId=4077229')"><td>3</td><td>커피 한 잔 할래요</td><td>2019-06-13</td><td>폴킴</td></tr>
+	<tr class="tr" onclick="window.open('https://music.naver.com/album/index.nhn?albumId=3046251&trackId=27218391')"><td>4</td><td>Runaway</td><td>2019-06-13</td><td>에릭남</td></tr>
+	<tr class="tr" onclick="window.open('https://music.naver.com/album/index.nhn?albumId=2151598&trackId=18675339')"><td>5</td><td>Island</td><td>2019-06-13</td><td>WINNER</td></tr>
+	<tr class="tr" onclick="window.open('https://music.naver.com/album/index.nhn?albumId=3022975&trackId=27061012')"><td>6</td><td>FANCY</td><td>2019-06-13</td><td>TWICE</td></tr>
+	<tr class="tr" onclick="window.open('https://music.naver.com/album/index.nhn?albumId=2798650&trackId=25169012')"><td>7</td><td>벌써 12시</td><td>2019-06-13</td><td>청하</td></tr>
+</tbody>
+</table>
+<div class="bt">
+<div><a href="">Click</a></div>
+<div><a href="">This</a></div>
+<div><a href="">Button</a></div>
+</div>
+</body>
+</html>

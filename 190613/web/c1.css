@@ -1,0 +1,26 @@
+@charset "EUC-KR";
+
+*{
+	/* border: 2px solid black; */
+}
+/* CSS Comments*/
+#h1 {
+	color: white;
+	background: darksalmon;
+}
+
+h1 {
+	color: white;
+	background: black;
+}
+
+.cc {
+	clocr: red;
+	background: blue;
+}
+input[name="id"]{
+	background: yellow;
+}
+input[type="password"]{
+	background: orange;
+}

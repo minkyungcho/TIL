@@ -1,0 +1,41 @@
+@charset "EUC-KR";
+
+
+.t1{
+	margin: 10px auto;
+	border: 2px solid #5954ED;
+	width: 400px;
+	border-collapse: collapse;
+	font-family: 'Nanum Gothic', sans-serif;
+	
+}
+.t1 > thead > tr > th{
+	background: lightgrey; 
+	/* color: white; */
+	font-family: 'Kumar One Outline', cursive;
+	font-style: fixed;
+}
+.t1 > tbody > tr:nth-child(2n) {
+	background: #C5C0FF;
+}
+.t1 > tbody > tr:nth-child(2n+1) {
+	/* background: #B2CCFF; */
+}
+.t1 > tbody > tr:hover{
+	color: #5C1DB5;
+	font-weight: bold;
+	font-style: oblique;
+}
+.tr > td:nth-child(1) {
+	text-align: center;
+}
+.tr > td:nth-child(3) {
+	text-align: center;
+}
+.tr > td:nth-child(2) {
+	text-align: left;
+}
+.tr > td:nth-child(4) {
+	text-align: right;
+	padding-right: 3px;
+}
