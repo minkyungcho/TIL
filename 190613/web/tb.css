@@ -1,6 +1,5 @@
 @charset "EUC-KR";
 
-
 .t1{
 	margin: 10px auto;
 	border: 2px solid #5954ED;
@@ -19,7 +18,7 @@
 	background: #C5C0FF;
 }
 .t1 > tbody > tr:nth-child(2n+1) {
-	/* background: #B2CCFF; */
+	background: white;
 }
 .t1 > tbody > tr:hover{
 	color: #5C1DB5;
