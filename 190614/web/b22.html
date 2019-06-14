@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://kit.fontawesome.com/9db21e39d0.js"></script>
+<style>
+/* Global CSS */
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+ul, ol {
+	list-style: none;
+}
+
+header, section, footer {
+	margin: 0 auto;
+}
+
+/* Header CSS */
+header {
+	width: 800px;
+	height: 200px;
+	background: #E5D85C;
+	position: relative;
+}
+/* 
+header>#top_nav {
+	position: absolute;
+	right: 2px;
+	height: 28px;
+	line-height: 28px;
+	font-size: 1.1em;
+}
+
+header>#top_nav>ul>li {
+	float: left;
+	margin: 0 5px;
+}
+ */
+header>#main_nav {
+	top: 120px;
+	height: 80px;
+	line-height: 80px;
+	font-size: 1.3em;
+}
+
+header>#main_nav>ul>li {
+	float: left;
+	width: 25%;
+	/* margin: 0 auto; */
+	text-align: center;
+}
+
+header>#main_nav>ul>li>.n {
+	width: 100px;
+	height: 40px;
+	text-align: right;
+	float: left;
+}
+
+header>#main_nav>ul>li>.t {
+	width: 100px;
+	height: 40px;
+	text-align: left;
+	float: left;
+}
+
+header>#main_nav>ul>li>div {
+	width: 200;
+	height: 70;
+}
+
+/* header>#main_nav>ul>li>div>#img {
+	width: 100px;
+} */
+header>hgroup {
+	line-height: 120px;
+	height: 120px;
+	background: lightgreen;
+	font-size: 1.3em;
+	text-align: center;
+	background: lightgrey;
+}
+
+header>hgroup>h1 {
+	display: inline;
+}
+
+header>hgroup>#p {
+	top: 2px;
+}
+
+header>hgroup>h1:nth-child(1) {
+	float: left;
+	text-align: left;
+	margin: 0 0 0 20px;
+}
+
+header>hgroup>h1:nth-child(2) {
+	float: center;
+	text-align: center;
+}
+
+header>hgroup>h1:nth-child(3) {
+	float: right;
+	text-align: right;
+	margin: 0 20px 0 0;
+}
+
+/* Section CSS */
+section {
+	width: 800px;
+	height: 1000px;
+}
+
+#left_aside {
+	width: 150px;
+	height: 1000px;
+	background: lightpink;
+	float: left;
+}
+
+#center_aside {
+	width: 550px;
+	height: 1000px;
+	background: #F29661;
+	float: left;
+}
+
+#right_aside {
+	width: 100px;
+	height: 1000px;
+	background: #F15F5F;
+	float: left;
+}
+
+#right_aside>img {
+	margin: 7px 10px;
+}
+
+/* Footer CSS */
+footer {
+	width: 800px;
+	height: 50px;
+	background: lightblue;
+}
+</style>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<header>
+		<!-- <nav id="top_nav">
+			<ul>
+				<li><a href="">LOGIN</a></li>
+				<li><a href="">REGISTER</a></li>
+				<li><a href="">ABOUT US</a></li>
+				<li><a href="">MAP</a></li>
+			</ul>
+		</nav> -->
+		<hgroup>
+			<h1 id="p">
+				<span style="color: black"><i class="fas fa-history"></i></span>
+			</h1>
+			<h1>
+				m1__ng <span style="color: black"><i
+					class="fas fa-angle-down"></i></span>
+			</h1>
+			<h1>
+				<span style="color: black"><i class="fas fa-bars"></i></span>
+			</h1>
+		</hgroup>
+		<nav id="main_nav">
+			<ul>
+				<li><div>
+						<span style="color: black"><i class="fas fa-user fa-2x"></i></span>
+						<!-- <img id="img" src="img01.jpg"> -->
+					</div></li>
+				<li>
+					<div class="n">999</div>
+					<div class="t">°Ô½Ã¹°</div>
+				</li>
+				<li>
+					<div class="n">999</div>
+					<div class="t">ÆÈ·Î¿ö</div>
+				</li>
+				<li>
+					<div class="n">999</div>
+					<div class="t">ÆÈ·ÎÀ×</div>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<section>
+		<aside id="left_aside"></aside>
+		<aside id="center_aside"></aside>
+		<aside id="right_aside">
+			<img src="http://via.placeholder.com/80x150"> <img
+				src="http://via.placeholder.com/80x150"> <img
+				src="http://via.placeholder.com/80x150"> <img
+				src="http://via.placeholder.com/80x150"> <img
+				src="http://via.placeholder.com/80x150"> <img
+				src="http://via.placeholder.com/80x150">
+		</aside>
+	</section>
+	<footer></footer>
+</body>
+</html>
