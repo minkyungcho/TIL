@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style>
+input[type="text"]:focus {
+	background: lightgray;
+}
+</style>
+<script>
+function signin(f){
+	var id = f.id.value;
+	var age = f.age.value;
+	var pwd1 = f.pwd1.value;
+	var pwd2 = f.pwd2.value;
+	var idr = document.getElementById('idresult');
+	var p1r = document.getElementById('pwd1result');
+	var p2r = document.getElementById('pwd2result');
+	var ager = document.getElementById('ageresult');
+	
+	idr.style.color = 'red';
+	p1r.style.color = 'red';
+	p2r.style.color = 'red';
+	ager.style.color = 'red';
+	
+	if (id == '' || id == null) {
+		idr.innerHTML = 'ID is Madatory field!';
+		f.id.focus();
+		return;
+	} else{
+		idr.innerHTML = '';
+		
+	} 
+	 
+	
+
+	if (pwd1 == '' || pwd1 == null) {
+		p1r.innerHTML = 'PWD is Madatory field!';
+		f.pwd1.focus();
+		return;
+	}else {
+		p1r.innerHTML = '';
+		
+	}
+	
+	if (pwd1.length < 4) {
+		p1r.innerHTML = 'PWD must be at least 4 character';
+		f.pwd1.focus();
+		return;
+	}else {
+		p1r.innerHTML = '';
+		
+	}
+	
+	
+	if (pwd2 != pwd1) {
+		p2r.innerHTML = 'PWD do not match';
+		f.pwd2.focus();
+		return;
+	}else {
+		p2r.innerHTML = '';
+		
+	}
+	
+	if (age == '' || age == null) {
+		ager.innerHTML = 'AGE is Madatory field!';
+		f.age.focus();
+		return;
+	} else{
+		ager.innerHTML = '';
+	} 
+	
+	if(age>0 || age<100){
+		ager.innerHTML = '';
+	}else {
+		ager.innerHTML = 'AGE is a number between 0 and 100';
+		f.age.focus();
+		return;
+	}
+	
+	var c = confirm('Are You Sign In?')
+	if (c == true) {
+		f.submit();
+	}
+}
+</script>
+</head>
+<body>
+<form action="signin" method="get">
+ID &nbsp<input type="text" name="id">&nbsp<span id="idresult"></span><br>
+PWD &nbsp<input type="text" name="pwd1">&nbsp<span id="pwd1result"></span><br>
+PWD &nbsp<input type="text" name="pwd2">&nbsp<span id="pwd2result"></span><br>
+HINT &nbsp<select name="hint">
+	<option value="보물 1호는?" selected>보물 1호는?</option>
+	<option value="학창시절 별명은?">학창시절 별명은?</option>
+	<option value="가장 친한 친구 이름은?">가장 친한 친구 이름은?</option>
+	</select><br>
+HOBBY &nbsp&nbspMOVIE<input type="checkbox" name="hobby" value="MOVIE">
+	MUSIC<input type="checkbox" name="hobby" value="MUSIC">
+	RUNNING<input type="checkbox" name="hobby" value="RUNNING">
+	<br>
+AGE &nbsp<input type="text" name="age">&nbsp<span id="ageresult"></span><br>
+<input onclick="signin(this.form);" type="button" value="Sign In">
+</form>
+</body>
+</html>

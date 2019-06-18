@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style></style>
+<script>
+//  1 ~ 100 랜덤 숫자
+var cnum = Math.ceil(100*Math.random());
+var gnum = 0;
+/* alert(cnum); */
+function numcheck(){
+	gnum++;
+	var hint = '';
+	var unum = document.getElementById('unum').value;
+	var unumber = parseInt(unum);
+	if(unumber > cnum){
+		hint = 'DOWN';
+	}else if(unumber < cnum){
+		hint = 'UP';
+	}else if(unumber == cnum){
+		hint = 'SUCCESS';
+	}
+	
+	document.getElementById('gnum').value = gnum;
+	document.getElementById('hint').value = hint;
+	return true;
+}
+
+</script>
+</head>
+<body>
+<h1>UP DOWN GAME</h1>
+<h4>이 게임은 컴퓨터가 생성한 랜덤 숫자(1~100)를 맞추는 게임입니다.</h4>
+<form>
+Number : <input type="text" id="unum"> <input type="button" value="check" onclick="numcheck();"><br>
+<br>
+Guess Number : <input readonly="readonly" type="number" id="gnum">
+Hint : <input readonly="readonly" type="text" id="hint"> <br>
+
+</form>
+</body>
+</html>

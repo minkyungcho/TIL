@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style></style>
+<script>
+var p1 = prompt('Input Number1...?'); /* prompt로 입력받은 값은 string */
+var p2 = prompt('Input Number2...?');
+var result = parseInt(p1) + Number(p2);
+alert(result); 
+console.log(result); /* console에서 결과값 확인 */
+var h = document.getElementById('h');
+h.innerHTML = result;
+</script>
+</head>
+<body>
+<h1 id="h">Result:</h1>
+</body>
+</html>
