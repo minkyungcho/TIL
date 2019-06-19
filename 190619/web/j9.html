@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style></style>
+<script>
+function add(){
+	var id = document.myform.hobby;
+	alert(id.length);
+};
+</script>
+</head>
+<body>
+<form name="myform">
+ID<input type="text" name="id"><br>	
+STUDY<input type="checkbox" name="hobby" value="s"><br>
+MUSIC<input type="checkbox" name="hobby" value="m"><br>
+TRAINING<input type="checkbox" name="hobby" value="t"><br>
+<br>
+<input type="button" value="ADD" onclick="add();">
+</form>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style></style>
+<script>
+function c1(){
+	var h1 = document.getElementById('h1').innerText; // 가져올때
+	document.getElementById('h1').innerText = h1 + ' ADD TEXT'; // 집어넣을때
+};
+
+function c2(){
+	var id = document.getElementById('id').innerText; // 가져올때
+	document.getElementById('id').innerText = id + ' ADD ID'; // 집어넣을때
+};
+</script>
+</head>
+<body>
+<h1 id="h1">Header</h1>
+ID<input id="id" type="text" name="id"><br>
+<p id="id"></p>
+<button onclick="c1();">Click1</button>
+<button onclick="c2();">Click2</button>
+</body>
+</html>

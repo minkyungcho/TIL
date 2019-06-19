@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style></style>
+<script>
+var person = [{id:"id01", name:"apple"},
+	{id:"id02", name:"banana"},
+	{id:"id03", name:"carrot"},
+	{id:"id04", name:"dragon"},
+	{id:"id05", name:"elephant"}
+]
+function getData(){
+	var data = document.getElementById('data');
+	var result = " ";
+	result += '<table>';
+	result += '<tbody>';
+	for(var i=0; i<person.length; i++){
+		result += 
+		'<tr>'+
+			'<td>'+person[i].id+'</td>'+
+			'<td>'+person[i].name+'</td>'+
+		'</tr>';
+	};
+	data.innerHTML = result;
+	result += '</tbody>';
+	result += '</table>';
+};
+
+</script>
+</head>
+<body>
+<h1 onclick="getData();">FOR TEST</h1>
+<div id="data"></div>
+</body>
+</html>

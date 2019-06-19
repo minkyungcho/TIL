@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>calculator</title>
+<style>
+	#div_p>#exp {
+		width: 300px;
+		height: 30px;
+		background: lightgray;
+	}
+	table {
+		width: 300px;			
+		height: 120px;		
+	}
+	td {
+		border: 1px solid black;			
+		text-align: center;			
+		vertical-align: middle;		
+	}
+	#C {			
+		width: 300px;
+		height: 30px;
+		background: lightblue;
+	}
+</style>
+<script>
+function sum(){
+	document.getElementById('exp').value += '+';
+};
+function sub(){
+	document.getElementById('exp').value += '-';
+};
+function mul(){
+	document.getElementById('exp').value += '*';
+};
+function div(){
+	document.getElementById('exp').value += '/';
+};
+function num(n){
+		document.getElementById('exp').value += n;
+};
+function cal(){
+	var exptext = document.getElementById('exp').value;
+	result = eval(exptext);
+	document.getElementById('exp').value = result;
+};
+</script>
+</head>
+<body>
+	<form>
+	<div id="div_p"><input readonly="readonly" id="exp"></div>
+	<button type="reset" id="C">C</button>
+	<table>
+		<tbody>
+			<tr id="operator">
+				<td onclick="sum();" id="sum" value="+">+</td>
+				<td onclick="sub();" id="sub" value="-">-</td>
+				<td onclick="mul();" id="mul" value="*">x</td>
+				<td onclick="div();" id="div" value="/">/</td>
+			</tr>
+			<tr>
+				<td onclick="num('1');" id="num" value="1">1</td>
+				<td onclick="num('2');" id="num" value="2">2</td>
+				<td onclick="num('3');" id="num" value="3">3</td>
+				<td onclick="num('0');" id="num" value="0">0</td>
+			</tr>
+			<tr>
+				<td onclick="num('4');" id="num" value="4">4</td>
+				<td onclick="num('5');" id="num" value="5">5</td>
+				<td onclick="num('6');" id="num" value="6">6</td>
+				<td rowspan="2" onclick="cal();" id="cal">=</td>
+			</tr>
+			<tr>
+				<td onclick="num('7');" id="num" value="7">7</td>
+				<td onclick="num('8');" id="num" value="8">8</td>
+				<td onclick="num('9');" id="num" value="9">9</td>
+			</tr>
+		</tbody>
+	</table>
+	</form>
+</body>
+</html>

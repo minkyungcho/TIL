@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style></style>
+<script>
+var person = [{id:"id01", name:"apple"},
+	{id:"id02", name:"banana"},
+	{id:"id03", name:"carrot"},
+	{id:"id04", name:"dragon"},
+	{id:"id05", name:"elephant"}
+];
+function getdata(){
+	for(var i in person){
+		person[i].print = function(){
+			return '<h2>'+this.id+' '+this.name+'</h2>';
+		};
+	}
+
+	var div = document.getElementById('div');
+	var result = '';
+	for(var i in person){
+		result += person[i].print();
+	}
+	div.innerHTML = result;
+};
+</script>
+</head>
+<body>
+<h1 onclick="getdata();">Click</h1>
+<div id="div"></div>
+</body>
+</html>
