@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SUBWAY</title>
+<style>
+	#h1{
+		background: #35B62C;
+		text-align: center;
+		height: 70px;
+		width: 994px;
+		margin: auto;
+		font-size: 3em;
+	}
+	#s1{
+		color: #F2CB61;
+	}
+	#s2{
+		color: white;
+	}
+table{
+	border-collapse: collapse;
+	margin: auto;
+}
+th{
+	background: #FF5E00;
+	color: white;
+	height: 30px;
+}
+table,th, td{
+	/* border: 1px solid black; */
+}
+div{
+	text-align: center;
+	margin: 2px 2px;
+}
+#t2{
+	width: 780px;
+	height: 210px;
+	text-align: center;
+}
+.k{
+	border: none;
+	text-align: center;
+}
+
+</style>
+<script>
+	var sum=0;
+function main(str,m){
+	document.getElementById('k_main').value += str;
+	sum += m;
+	document.getElementById('checkout').value = sum;
+};
+function bread(str){
+	document.getElementById('k_bread').value += str;
+};
+function cheese(str){
+	document.getElementById('k_che').value += str;
+};
+function veg(str){
+	document.getElementById('k_veg').value += str;
+};
+function sauce(str){
+	document.getElementById('k_sauce').value += str;
+};
+function drink(str,m){
+	document.getElementById('k_drink').value += str;
+	sum += m;
+	document.getElementById('checkout').value = sum;
+};
+function side(str,m){
+	document.getElementById('k_side').value += str;
+	sum += m;
+	document.getElementById('checkout').value = sum;
+};
+function cal(){
+	alert("주문되었습니다.");
+	document.getElementById('k_main').value = "";
+	document.getElementById('k_bread').value = "";
+	document.getElementById('k_che').value = "";
+	document.getElementById('k_veg').value = "";
+	document.getElementById('k_sauce').value = "";
+	document.getElementById('k_side').value = "";
+	document.getElementById('k_drink').value = "";
+	document.getElementById('checkout').value ="";
+};
+function cancle(){
+	alert("주문이 취소되었습니다.");
+	document.getElementById('k_main').value = "";
+	document.getElementById('k_bread').value = "";
+	document.getElementById('k_che').value = "";
+	document.getElementById('k_veg').value = "";
+	document.getElementById('k_sauce').value = "";
+	document.getElementById('k_side').value = "";
+	document.getElementById('k_drink').value = "";
+	document.getElementById('checkout').value ="";
+};
+</script>
+</head>
+<body>
+<h1 id="h1"><span id="s1">SUB</span><span id="s2">WAY</span></h1>
+<table id="t1">
+	<tr><th>메인</th><th>빵</th><th>치즈</th><th>야채</th><th>소스</th><th>음료</th><th>사이드</th></tr>
+	<tr>
+		<td>
+			<img src="http://subway.co.kr/images/menu/sandwich_cl06.jpg" width="140px" height="100px" value="에그마요" onclick="main('에그마요',4300);"><div>에그마요</div><br>
+			<img src="http://subway.co.kr/images/menu/sandwich_cl03.jpg" width="140px" height="100px" value="미트볼" onclick="main('미트볼',5100);"><div>미트볼</div><br>
+			<img src="http://subway.co.kr/images/menu/sandwich_pm07.jpg" width="140px" height="100px" value="치킨데리야끼" onclick="main('치킨데리야끼',5600);"><div>치킨데리야끼</div><br>
+			<img src="http://subway.co.kr/images/menu/sandwich_cl02.jpg" width="140px" height="100px" value="B.L.T" onclick="main('B.L.T',5100);"><div>B.L.T</div><br>
+			<img src="http://subway.co.kr/images/menu/sandwich_pm11.jpg" width="140px" height="100px" value="쉬림프아보카도" onclick="main('쉬림프아보카도',6300);"><div>쉬림프아보카도</div><br>
+		</td>
+		<td>
+			<img src="http://subway.co.kr/images/menu/img_recipe_b05.jpg" width="140px" height="100px" value="화이트" onclick="bread('화이트');"><div>화이트</div><br>
+			<img src="http://subway.co.kr/images/menu/img_recipe_b03.jpg" width="140px" height="100px" value="위트" onclick="bread('위트');"><div>위트</div><br>
+			<img src="http://subway.co.kr/images/menu/img_recipe_b04.jpg" width="140px" height="100px" value="파마산오레가노" onclick="bread('파마산오레가노');"><div>파마산오레가노</div><br>
+			<img src="http://subway.co.kr/images/menu/img_recipe_b01.jpg" width="140px" height="100px" value="허니오트" onclick="bread('허니오트');"><div>허니오트</div><br>
+			<img src="http://subway.co.kr/images/menu/img_recipe_b06.jpg" width="140px" height="100px" value="플랫브레드" onclick="bread('플랫브레드');"><div>플랫브레드</div><br>
+		</td>
+		<td>
+			<img src="http://subway.co.kr/images/menu/img_recipe_c01.jpg" width="140px" height="100px" value="아메리칸치즈" onclick="cheese('아메리칸치즈');" ><div>아메리칸치즈</div><br>
+			<img src="http://subway.co.kr/images/menu/img_recipe_c02.jpg" width="140px" height="100px" value="슈레드치즈" onclick="cheese('슈레드치즈');"><div>슈레드치즈</div><br>
+		</td>
+		<td>
+				<img src="http://subway.co.kr/images/menu/img_recipe_v01.jpg" width="140px" height="100px" value="양상추" onclick="veg('양상추');"><div>양상추</div>
+				<img src="http://subway.co.kr/images/menu/img_recipe_v02.jpg" width="140px" height="100px" value="토마토" onclick="veg('토마토');"><div>토마토</div>
+				<img src="http://subway.co.kr/images/menu/img_recipe_v05.jpg" width="140px" height="100px" value="양파" onclick="veg('양파');"><div>양파</div>
+				<img src="http://subway.co.kr/images/menu/img_recipe_v04.jpg" width="140px" height="100px" value="피망" onclick="veg('피망');"><div>피망</div>
+				<img src="http://subway.co.kr/images/menu/img_recipe_v07.jpg" width="140px" height="100px" value="올리브" onclick="veg('올리브');"><div>올리브</div>
+				<img src="http://subway.co.kr/images/menu/img_recipe_v08.jpg" width="140px" height="100px" value="할라피뇨" onclick="veg('할라피뇨');"><div>할라피뇨</div>
+				<img src="http://subway.co.kr/images/menu/img_recipe_v06.jpg" width="140px" height="100px" value="피클" onclick="veg('피클');"><div>피클</div>
+		</td>
+		<td>
+				<img src="http://subway.co.kr/images/menu/img_recipe_s01.jpg" width="140px" height="100px" value="렌치" onclick="sauce('렌치');"><div>렌치</div>
+				<img src="http://subway.co.kr/images/menu/img_recipe_s07.jpg" width="140px" height="100px" value="스위트어니언" onclick="sauce('스위트어니언');"><div>스위트어니언</div>
+				<img src="http://subway.co.kr/images/menu/img_recipe_s12.jpg" width="140px" height="100px" value="스위트칠리" onclick="sauce('스위트칠리');"><div>스위트칠리</div>
+				<img src="http://subway.co.kr/images/menu/img_recipe_s18.jpg" width="140px" height="100px" value="핫칠리" onclick="sauce('핫칠리');"><div>핫칠리</div>
+				<img src="http://subway.co.kr/images/menu/img_recipe_s02.jpg" width="140px" height="100px" value="마요네즈" onclick="sauce('마요네즈');"><div>마요네즈</div>
+				<img src="http://subway.co.kr/images/menu/img_recipe_s11.jpg" width="140px" height="100px" value="허니머스타드" onclick="sauce('허니머스타드');"><div>허니머스타드</div>
+		</td>
+		<td>
+				<img src="http://subway.co.kr/images/menu/img_drink_01.jpg" width="140px" height="100px" value="콜라" onclick="drink('콜라',1500);"><div>콜라</div>
+				<img src="http://subway.co.kr/images/menu/img_drink_02.jpg" width="140px" height="100px" value="아메리카노" onclick="drink('아메리카노',2000);"><div>아메리카노</div>
+		</td>
+		<td>
+				<img src="http://subway.co.kr/images/menu/img_sides_09.jpg" width="140px" height="100px" value="웨지감자" onclick="side('웨지감자',1500);"><div>웨지감자</div>
+				<img src="http://subway.co.kr/images/menu/img_sides_01.jpg" width="140px" height="100px" value="브로콜리스프" onclick="side('브로콜리스프',2900);"><div>브로콜리스프</div>
+				<img src="http://subway.co.kr/images/menu/img_sides_04.jpg" width="140px" height="100px" value="초코칩쿠키" onclick="side('초코칩쿠키',1000);"><div>초코칩쿠키</div>
+				<img src="http://subway.co.kr/images/menu/img_sides_10.jpg" width="140px" height="100px" value="해시브라운" onclick="side('해시브라운',1200);"><div>해시브라운</div>
+		</td>
+	</tr>
+</table>
+<br>
+<table id="t2">
+	<tr><th>메인</th><th>빵</th><th>치즈</th><th>야채</th><th>소스</th><th>음료</th><th>사이드</th><th>계산</th></tr>
+	<tr>
+		<td><div><input readonly="readonly" id="k_main" class="k"></div></td>
+		<td><div><input readonly="readonly" id="k_bread" class="k"></div></td>
+		<td><div><input readonly="readonly" id="k_che" class="k"></div></td>
+		<td><div><input readonly="readonly" id="k_veg" class="k"></div></td>
+		<td><div><input readonly="readonly" id="k_sauce" class="k"></div></td>
+		<td><div><input readonly="readonly" id="k_drink" class="k"></div></td>
+		<td><div><input readonly="readonly" id="k_side" class="k"></div></td>
+		<td>
+			<div>TOTAL<input readonly="readonly" id="checkout" class="k"></div>
+			<div><button id="bt" onclick="cal();">주문완료</button></div>
+			<div><button id="cancle" onclick="cancle();">주문취소</button></div>
+		</td>
+	</tr>
+</table>
+</body>
+</html>
