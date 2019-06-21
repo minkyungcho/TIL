@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SUBWAY</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<style>
+	#h1{
+		background: #35B62C;
+		text-align: center;
+		height: 70px;
+		width: 994px;
+		margin: auto;
+		font-size: 3em;
+	}
+	#s1{
+		color: #F2CB61;
+	}
+	#s2{
+		color: white;
+	}
+table{
+	border-collapse: collapse;
+	margin: auto;
+}
+th{
+	background: #FF5E00;
+	color: white;
+	height: 30px;
+}
+table,th, td{
+	/* border: 1px solid black; */
+}
+div{
+	text-align: center;
+	margin: 2px 2px;
+}
+#t2{
+	width: 780px;
+	height: 210px;
+	text-align: center;
+}
+.k{
+	border: none;
+	text-align: center;
+}
+img{
+	width: 140px; 
+	height: 100px;
+}
+
+</style>
+<script>
+var menu = [
+	// 메인
+	{img:'http://subway.co.kr/images/menu/sandwich_cl06.jpg', type:'main', name:'에그마요', price:'4300' },
+	{img:'http://subway.co.kr/images/menu/sandwich_cl03.jpg', type:'main', name:'미트볼', price:'5100' },
+	{img:'http://subway.co.kr/images/menu/sandwich_pm07.jpg', type:'main', name:'치킨데리야끼', price:'5600' },
+	{img:'http://subway.co.kr/images/menu/sandwich_cl02.jpg', type:'main', name:'B.L.T', price:'5100' },
+	{img:'http://subway.co.kr/images/menu/sandwich_pm11.jpg', type:'main', name:'쉬림프아보카도', price:'6300'},
+
+	// 빵
+	{img:'http://subway.co.kr/images/menu/img_recipe_b05.jpg', type:'bread', name:'화이트', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_b03.jpg', type:'bread', name:'위트', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_b04.jpg', type:'bread', name:'파마산오레가노', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_b01.jpg', type:'bread', name:'허니오트', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_b06.jpg', type:'bread', name:'플랫브레드', price:'' },
+
+	// 치즈
+	{img:'http://subway.co.kr/images/menu/img_recipe_c01.jpg', type:'cheese', name:'아메리칸치즈', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_c02.jpg', type:'cheese', name:'슈레드치즈', price:'' },
+
+	// 야채
+	{img:'http://subway.co.kr/images/menu/img_recipe_v01.jpg', type:'veg', name:'양상추', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_v02.jpg', type:'veg', name:'토마토', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_v05.jpg', type:'veg', name:'양파', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_v04.jpg', type:'veg', name:'피망', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_v07.jpg', type:'veg', name:'올리브', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_v08.jpg', type:'veg', name:'할라피뇨', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_v06.jpg', type:'veg', name:'피클', price:'' },
+
+	// 소스
+	{img:'http://subway.co.kr/images/menu/img_recipe_s01.jpg', type:'sauce', name:'렌치', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_s07.jpg', type:'sauce', name:'스위트어니언', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_s12.jpg', type:'sauce', name:'스위트칠리', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_s18.jpg', type:'sauce', name:'핫칠리', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_s02.jpg', type:'sauce', name:'마요네즈', price:'' },
+	{img:'http://subway.co.kr/images/menu/img_recipe_s11.jpg', type:'sauce', name:'허니머스타드', price:'' },
+
+	// 음료
+	{img:'http://subway.co.kr/images/menu/img_drink_01.jpg', type:'drink', name:'콜라', price:'1500' },
+	{img:'http://subway.co.kr/images/menu/img_drink_02.jpg', type:'drink', name:'아메리카노', price:'2000' },
+
+	// 사이드
+	{img:'http://subway.co.kr/images/menu/img_sides_09.jpg', type:'side', name:'웨지감자', price:'1500' },
+	{img:'http://subway.co.kr/images/menu/img_sides_01.jpg', type:'side', name:'브로콜리스프', price:'2900' },
+	{img:'http://subway.co.kr/images/menu/img_sides_04.jpg', type:'side', name:'초코칩쿠키', price:'1000' },
+	{img:'http://subway.co.kr/images/menu/img_sides_10.jpg', type:'side', name:'해시브라운', price:'1200' }
+];
+
+// 메뉴 출력
+$(document).ready(function(){
+	$(menu).each(function(idx, item){
+		var result = '';
+		var cart = '';
+		if(item.type == 'main'){
+			result = '<div><img src="'+item.img+'"><br>'+item.name+'<br><br></div>';
+			$('td:eq(0)').append(result);
+		}else if(item.type == 'bread'){
+			result = '<div><img src="'+item.img+'"><br>'+item.name+'<br><br></div>';
+			$('td:eq(1)').append(result);
+		}else if(item.type == 'cheese'){
+			result = '<div><img src="'+item.img+'"><br>'+item.name+'<br><br></div>';
+			$('td:eq(2)').append(result);
+		}else if(item.type == 'veg'){
+			result = '<div><img src="'+item.img+'"><br>'+item.name+'<br><br></div>';
+			$('td:eq(3)').append(result);
+		}else if(item.type == 'sauce'){
+			result = '<div><img src="'+item.img+'"><br>'+item.name+'<br><br></div>';
+			$('td:eq(4)').append(result);
+		}else if(item.type == 'drink'){
+			result = '<div><img src="'+item.img+'"><br>'+item.name+'<br><br></div>';
+			$('td:eq(5)').append(result);
+		}else if(item.type == 'side'){
+			result = '<div><img src="'+item.img+'"><br>'+item.name+'<br><br></div>';
+			$('td:eq(6)').append(result);
+		}
+	
+		// var cart = '';
+		// $('div').click(function(){
+		// 	cart = '<div>'+item.name+'</div><br>';
+		// 	$('#t2 > td:eq(0)').append(cart);
+		// });
+
+	});
+
+});
+
+// 장바구니 출력
+$(document).ready(function(){
+	$(menu).each(function(idx, item){
+		var cart = '';
+		var m = '';
+		
+		$('div:eq(0)').click(function(){
+			// if(item.name == '에그마요'){
+				
+				cart = '<div>'+item.name+'</div><br>';
+				m += item.price;
+				$('td:eq(7)').append(cart);
+				$('#s3').append(m);
+			// }else if(item.name=='미트볼'){
+			// 	cart = '<div>'+item.name+'</div><br>';
+			// 	m += item.price;
+			// 	$('td:eq(7)').append(cart);
+			// 	$('#s3').append(m);
+			//}
+		});
+	});
+});
+
+</script>
+</head>
+<body>
+<h1 id="h1"><span id="s1">SUB</span><span id="s2">WAY</span></h1>
+<table id="t1">
+	<tr><th>메인</th><th>빵</th><th>치즈</th><th>야채</th><th>소스</th><th>음료</th><th>사이드</th></tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
+<br>
+<table id="t2">
+	<tr><th>메인</th><th>빵</th><th>치즈</th><th>야채</th><th>소스</th><th>음료</th><th>사이드</th><th>계산</th></tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>  
+			<div>TOTAL <span id="s3"></span></div>
+			<!-- <div>TOTAL<input readonly="readonly" id="checkout" class="k"></div> -->
+			<div><button id="bt" onclick="cal();">주문완료</button></div>
+			<div><button id="cancle" onclick="cancle();">주문취소</button></div>
+		</td>
+	</tr>
+</table>
+</body>
+</html>
