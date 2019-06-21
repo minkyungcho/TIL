@@ -1,0 +1,82 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<style>
+div{
+	width: 300px;
+	border:3px solid blue;
+	margin-top:30px;
+	height: 300px;
+}
+/* 미리 class의 css를 정해놓음. */
+.hh{
+	color: red;
+	font-size: 1.2em;
+	background: pink;
+}
+.dd{
+	border: 3px dotted red;
+	background: orange;
+}
+</style>
+<script>
+var cnt=0;
+$(document).ready(function(){
+	$('button:eq(0)').click(function(){
+		$('div').append('<h3>Append'+cnt+'</h3>');
+		cnt++;
+	});
+	$('button:eq(1)').click(function(){
+		$('div').prepend('<h3>Prepend'+cnt+'</h3>');
+		cnt++;
+	});
+	$('button:eq(2)').click(function(){
+		$('div').after('<h3>After'+cnt+'</h3>');
+		cnt++;
+	});
+	$('button:eq(3)').click(function(){
+		$('div').before('<h3>Before'+cnt+'</h3>');
+		cnt++;
+	});
+	$('button:eq(4)').click(function(){
+		$('div').empty('<h3>Empty'+cnt+'</h3>');
+	});
+	
+	$('button:eq(5)').click(function(){
+		$('div').remove(); /* div 지우기 */
+	});
+	$('button:eq(6)').click(function(){
+		$('div').addClass('dd'); 
+		$('h1').addClass('hh'); 
+	});
+	$('button:eq(7)').click(function(){
+		$('div').removeClass('dd'); 
+		$('h1').removeClass('hh'); 
+	});
+});
+
+</script>
+</head>
+</script>
+</head>
+<body>
+<h1>DOM Management</h1>
+<button>APPEND</button>
+<button>PREPEND</button>
+<button>AFTER</button>
+<button>BEFORE</button>
+<button>EMPTY</button>
+<button>REMOVE</button>
+<button>ADD CLASS</button>
+<button>REMOVE CLASS</button>
+
+<div></div>div>
+</body>
+</html>

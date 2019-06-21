@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<style></style>
+<script>
+$(document).ready(function(){
+	// $('img').css('display','none'); /* img 없어짐 */
+	// $('button').click(function(){
+	// 	$('img').show('slow'); /* img 천천히 띄움 */
+	// });
+	$('img').css('position','relative'); 
+	$('button').click(function(){
+		$('img').animate({ /* img 움직이기 */
+			left: '300px',
+			opacity:'0.5',
+			width: '400px'
+		}); 
+	});
+});
+</script>
+</head>
+<body>
+<button>Click</button>
+<img src="img01.jpg">
+</body>
+</html>

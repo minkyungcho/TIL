@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<style></style>
+<script>
+$(document).ready(function(){ /* 문서가 준비가 되면 함수가 실행된다  */
+$('h1:nth-child(2n)').css('color','red');
+});
+$(document).ready(function(){ /* 문서가 준비가 되면 함수가 실행된다  */
+$('h1').eq(0).css('color','blue');
+});
+$(document).ready(function(){ /* 문서가 준비가 되면 함수가 실행된다  */
+$('h1:not(h1:eq(3))').css('color','black');
+});
+</script>
+</head>
+<body>
+<h1>Header1</h1>
+<h1>Header2</h1>
+<h1>Header3</h1>
+<h1>Header4</h1>
+<h1>Header5</h1>
+</body>
+</html>
