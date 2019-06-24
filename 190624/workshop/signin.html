@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<style></style>
+<script>
+function display_id(result_id){
+	if(result_id == '1'){
+		$('#check_id').text('사용 가능한 ID입니다.');
+	}else {
+		$('#check_id').text('이미 사용중인 ID입니다.');
+	}
+};
+function display_pwd1(result_pwd1){
+	if(result_pwd1 == '2'){
+		$('#check_pwd1').text('PWD는 ID와 같을 수 없습니다.');
+	}else if(result_pwd1 == '1'){
+		$('#check_pwd1').text('사용가능한 PWD입니다.');
+	}else {
+		$('#check_pwd1').text('6-20 영문 대소문자, 최소 1개의 숫자 혹은 특수 문자를 포함해야 합니다.');
+	}
+};
+function display_pwd2(result_pwd1){
+	if(result_pwd1 == '2'){
+		$('#check_pwd1').text('PWD는 ID와 같을 수 없습니다.');
+	}else if(result_pwd1 == '1'){
+		$('#check_pwd1').text('PWD 입니다.');
+	}
+};
+function checkID(id){
+	$.ajax({
+		url:'signin',
+		data:{'id':id},
+		method:'get',
+		success:function(result_id){
+			display_id(result_id);
+		}
+	});
+};
+function checkPWD1(pwd1){
+	$.ajax({
+		url:'signin',
+		data:{'pwd1':pwd1},
+		method:'get',
+		success:function(result_pwd1){
+			display_pwd1(result_pwd1);
+		}
+	});
+};
+function checkPWD2(pwd2){
+	$.ajax({
+		url:'signin',
+		data:{'pwd2':pwd2},
+		method:'get',
+		success:function(result_pwd2){
+			display_pwd2(result_pwd2);
+		}
+	});
+};
+$(document).ready(function(){
+	$('input[type="button"]').click(function(){
+		$('#signin_form').attr('method','post');
+		$('#signin_form').attr('action','signin');
+		$('#signin_form').submit();
+	});
+	$('input[name="id"]').keyup(function(){
+		var id = $(this).val();
+		checkID(id);
+	});
+	$('input[name="pwd1"]').keyup(function(){
+		var pwd1 = $(this).val();
+		checkPWD1(pwd1);
+	});
+	$('input[name="pwd2"]').keyup(function(){
+		var pwd2 = $(this).val();
+		checkPWD2(pwd2);
+	});
+});
+</script>
+</head>
+<body>
+<h1>SIGN-IN PAGE</h1>
+<form id="signin_form">
+ID <input type="text" name="id"> <span id="check_id"></span><br>
+PWD <input type="text" name="pwd1"> <span id="check_pwd1"></span><br>
+PWD CHECK <input type="text" name="pwd2"> <span id="check_pwd2"></span><br>
+NAME <input type="text" name="name"><br>
+<input type="button" value="SIGNIN">
+<!-- <button>SIGN-IN</button> -->
+</form>
+</body>
+</html>
