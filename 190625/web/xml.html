@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<style></style>
+<script>
+function makeChart(data){
+	Highcharts.chart('container', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: 'Seoul Monthly Average Temperature'
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
+        title: {
+            text: 'Temperature (°C)'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
+    },
+    series:data
+	});
+}; // end makeChart
+
+// function Temp(n,d1,d2,d3){
+// 	this.name = n;
+// 	this.data = [d1,d2,d3];
+// };
+function Temp(n,d1){
+	this.name = n;
+	this.data = d1;
+};
+
+function parsing(data){
+	var ts = $(data).find('temp'); /* temp 여러개를 배열로 가져오기 */
+	// alert(ts);
+	var datas = [];
+	ts.each(function(index,item){
+		var name = $(this).find('name').text(); // 가져올때도, 넣을때도 text
+		
+		var d = $(this).find('data');
+		var ds = [];
+		d.each(function(index, item){
+			ds.push(Number($(item).text()));
+		});
+		var obj = new Temp(name,ds);
+		datas.push(obj);
+		// var data1 = $(this).find('data1').text(); 
+		// var data2 = $(this).find('data2').text(); 
+		// var data3 = $(this).find('data3').text(); 
+		// var obj = new Temp(name, Number(data1), Number(data2), Number(data3))
+		// datas.push(obj); // push 사용하여 배열에 집어넣기
+	});
+	makeChart(datas);
+};
+
+function getData(){
+	$.ajax({
+		url:'temp.xml',
+		success:function(data){
+			parsing(data);
+			// alert(data);
+			// makeChart(eval(data));
+		}
+	});
+};
+
+$(document).ready(function(){
+	getData();
+	setInterval(getData,5000);
+});
+</script>
+</head>
+<body>
+<h1>My Charts</h1>
+<div id="container" 
+style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+</body>
+</html>
