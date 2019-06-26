@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=902cb96a96e5d5281900c283095b217c"></script>
+
+	<style>
+		#map {
+			width: 800px;
+			height: 800px;
+			border: 2px solid red;
+		}
+	</style>
+	<script>
+		$(document).ready(function () {
+			var center = new daum.maps.LatLng(33.506936, 126.493045);
+			var container =
+				document.getElementById('map');
+
+			var options = {
+				center: center,
+				level: 10
+				// zoom: 5
+			};
+
+			var map =
+				new daum.maps.Map(container, options);
+			// var marker = new kakao.maps.Marker({
+			// 	map: map,
+			// 	position: new kakao.maps.LatLng(33.450701, 126.570667)
+			// });
+			// marker.setMap(map);
+			$.ajax({
+				url: 'https://cors.io/?http://data.jeju.go.kr/rest/besteating/getEatingList?authApiKey=V%2BXyeaErdAAZAf2dSPlKPWTvwIjmHbInOd70m0wxy1C5v0g4RTgBBnzKsmMcdY3nGQcoMdzx00lSpth0Dn%2FsUg%3D%3D',
+				dataType: 'xml',
+				success: function (data) {
+					var ts = $(data).find('list');
+
+					var datas = [];
+					ts.each(function (index, item) {
+						var la = $(this).find('la').text();
+						var lo = $(this).find('lo').text();
+						var title = $(this).find('dataTitle').text();
+						var address = $(this).find('adres').text();
+						
+						var marker = new kakao.maps.Marker({
+							map: map,
+							position: new kakao.maps.LatLng(la, lo)
+						});
+						kakao.maps.event.addListener(marker, 'click', function () {
+							alert("상호명: "+title+"\n주소: "+address);
+						});
+						marker.setMap(map);
+					});
+				}
+			});
+		});
+	</script>
+</head>
+
+<body>
+
+	<div id="map"></div>
+</body>
+
+</html>
