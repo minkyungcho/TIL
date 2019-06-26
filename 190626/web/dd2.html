@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<style>
+div{
+	width:600px;
+	height:80px;
+	border:2px solid red;
+	
+}	
+img{
+	width:100px;
+	margin: auto;
+}
+</style>
+<script>
+
+function itemdrop(e){
+	var src = e.dataTransfer.getData('m');
+	console.log(src);
+	$('#item').append($('#'+src));
+};
+
+function itemleave(e){
+
+};
+var cnt =0;
+function cartdrop(e){
+	var src = e.dataTransfer.getData('m'); /* ex) src: m1 */
+	$('#cart').append($('#'+src)) /* id가 cart인 곳에 append. ex) element: #m1 */
+	console.log(src);
+	var cnt =0;
+	if(sessionStorage.cnt == null || sessionStorage.cnt == 0){
+		sessionStorage.cnt = 1;
+		cnt++;
+	}else{
+		var cnt = ++sessionStorage.cnt;
+	}
+	$('h3').eq(1).text(cnt);
+};
+
+function cartleave(e){
+
+};
+
+function allowdrop(e){
+	e.preventDefault();
+};
+
+function imgdrag(e){
+	e.dataTransfer.effectAllowed = 'move';
+	e.dataTransfer.setData('m',e.target.id); /* img drag하는 순간 m이라는 이름으로 e.target.id를 저장함  */
+	console.log(e.target.id);
+};
+</script>
+</head>
+<body>
+<h1>Drag and Drop</h1>
+<h2>Item </h2>
+<h3></h3>
+<div id="item" ondrop="itemdrop(event)" ondragover="allowdrop(event)" ondragleave="itemleave(event)"> <!-- ondrop 일어나면 itemdrop 발생 ondragleave 일어나면 itemleave 발생  -->
+	<img src="car-p.png" id="m1" draggable="true" ondragstart="imgdrag(event)">
+	<img src="stu.png" id="m2" draggable="true" ondragstart="imgdrag(event)">
+	<img src="intern-p.png" id="m3" draggable="true" ondragstart="imgdrag(event)">
+	<img src="skill.png" id="m4" draggable="true" ondragstart="imgdrag(event)">
+	<img src="lab.png" id="m5" draggable="true" ondragstart="imgdrag(event)">
+</div>
+<h2>Cart</h2>
+<h3></h3>
+<div id="cart" ondrop="cartdrop(event)" ondragover="allowdrop(event)" ondragleave="cartleave(event)">
+</body>
+</html>
