@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script>
+
+</script>
+</head>
+<body>
+<h1>Register Page</h1>
+<form action="register" method="POST">
+ID<input type="text" name="id"><br>
+PWD<input type="password" name="pwd"><br>
+<fieldset>
+	<legend>성별</legend>
+	여성 <input type="radio" name="gender" value="female" checked>
+	남성 <input type="radio" name="gender" value="male" >
+</fieldset>
+<fieldset>
+	<legend>직업</legend>
+	<select name="job">
+		<option value="">--직업선택--</option>
+		<option value="학생">학생</option>
+		<option value="취준생">취준생</option>
+		<option value="회사원">회사원</option>
+		<option value="기타">기타</option>
+	</select>
+</fieldset>
+<fieldset>
+	<legend>취미</legend>
+	스포츠경기관람 <input type="checkbox" name="hobby" value="sports game">
+	영화 감상 <input type="checkbox" name="hobby" value="movie">
+	음악 감상 <input type="checkbox" name="hobby" value="music">
+	독서 <input type="checkbox" name="hobby" value="book">
+</fieldset>
+<input type="submit" value="REGISTER"><br>
+</form>
+</body>
+</html>
+
+<!--   -->
