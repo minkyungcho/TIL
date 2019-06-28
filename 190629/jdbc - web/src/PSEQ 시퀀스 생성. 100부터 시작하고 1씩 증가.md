@@ -1,0 +1,14 @@
+- PSEQ 시퀀스 생성. 100부터 시작하고 1씩 증가
+
+```SQL
+CREATE SEQUENCE PSEQ
+INCREMENT BY 1
+START WITH 100 
+```
+
+- PESQ 시퀀스 삭제
+
+```SQL
+DROP SEQUENCE PSEQ
+```
+
