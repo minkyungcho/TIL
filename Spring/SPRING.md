@@ -58,7 +58,7 @@ POJO - Plain Old Java Object
 - spring은 eclipse에도 없어서 따로 설치해야함
   - marketplace에서 sts 검색 후 Spring Tools 3.0 다운
   - 프로젝트 우클릭 - Spring - Add spring project nature 선택
-  - vmfhwprxm dnzmfflr - configure - convert to Maven project 선택
+  - 프로젝트 우클릭 - configure - convert to Maven project 선택
     - C/사용자/student/.m2/repository 에 다운받아짐
     - pom.xml : 강사님이 올려주신 pom.xml로 복붙 후 groupId, artifactId 프로젝트명(day0111)으로 수정
   - 프로젝트 우클릭 - Maven - update project
