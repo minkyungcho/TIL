@@ -1,5 +1,7 @@
 # SPRING
 
+# 01 
+
 ## I. FRAME WORK 개요
 
 프레임워크 : 뼈대, 틀. sw 관점에서 접근하면 아키텍쳐에 해당하는 골격코드
@@ -78,6 +80,213 @@ POJO - Plain Old Java Object
 ## III. 의존성 주입
 
 의존성 주입은 코드에서 하지 않고 xml에서!
+
+
+
+## IV. 어노테이션 기반 설정
+
+### 어노테이션 설정 기초
+
+- context 네임스페이스 추가
+- 컴포넌트 스캔 설정
+- <context:component-scan base-package="com.*"/>
+
+
+
+### 의존성 주입 설정
+
+1. 첫번째 방법 
+
+- UserBiz 
+  - 고유 이름 정해주기 @Component("ubiz")
+  - @Autowired // 어떤게 들어와도 상관 없다
+- myspring에 가서 bean 하나만 생성
+  - <bean id="uod" class="com.user.UserOracleDao"/>
+- App 실행
+
+> Componenet == Repository
+
+2. 두번째 방법
+
+- myspring에 bean 안만들고
+- UserOracleDao -  @Repository("uod")
+- UserMariaDao -  @Repository("umd")
+- UserBiz 
+  - @Service("ubiz")
+  - @Resource(name="uod") // 여기서 uod, umd 중 선택
+- App 실행
+
+
+
+# 02
+
+## I. 스프링 AOP
+
+### AOP 
+
+- Aspect Oriented Programming
+
+- 응집도와 관련된 기능
+
+- 기존 객체지향언어에서는 횡단관심에 해당하는 공통 코드를 환벽하게 분리시키기 어렵다
+
+  => 관심분리
+
+  -  횡단관심 : 메소드마다 공통으로 등장하는 로깅이나 예외, 트랜잭션 처리 같은 코드
+  - 핵심관심 : 사용자의 요청에 따라 실제로 수행되는 핵심 비즈니스 로직
+
+
+
+#### LOG 찍기 
+
+> day022
+
+- LogAdvice class 생성
+
+  ```java
+  public class LogAdvice {
+  	public void printlog() {
+  		Date d = new Date();
+  		System.out.println(d+"[공통로그]비즈니스 로직 수행...");
+  	}
+  }
+  ```
+
+- UserBiz에 추가
+
+  ```java
+  LogAdvice log; // 클래스 상단에 선언
+  log = new LogAdvice(); // UserBiz constructor에 생성
+  log.printlog(); // 모든 함수에 추가
+  ```
+
+  
+
+### AOP 시작하기
+
+> day022
+
+- AOP lib 추가
+- aop 네임스페이스 추가
+
+
+
+### 관심분리
+
+#### XML 적용 방식
+
+>  java 코드에는 변화 없음. xml에만 추가.
+
+
+
+#### Annotation 적용 방식
+
+> java 코드 수정
+
+
+
+## II.AOP 용어 및 기본 설정
+
+#### AOP 용어 정리
+
+- jointpoint 조인포인트
+- pointcut 포인트컷
+- advice 어드바이스 : 횡단관심에 해당하는 공통기능의 코드 (LogAdvice)
+
+#### AOP 엘리먼트
+
+```java
+<aop:config> // 루트. 하위에 <aop:pointcut>, <aop:aspect>가 위치함.
+<aop:pointcut> // 포인트컷 지정. 유일한 id 할당하여 aspect 설정할때 포인트컷을 참조하는 용도로 사용. 적용할 위치
+<aop:aspect> // 포인스컷 메소드(핵심관심)와 어드바이스 메소드(횡단관심) 결합. 무엇을 어떻게 적용할 것인지
+<aop:advisor> // 특수한 경우(트랜잭션 설정)의 포인트컷과 어드바이스 결합 aspect와 같은 기능.
+```
+
+## III. 어드바이스 동작 시점
+
+#### before
+
+포인트컷으로 지정된 메소드 호출 시, 메소드가 실행되기 전에 처리될 내용들을 기술.
+
+``` java
+<aop:before pointcut-ref="allPointcut" method="beforeLog"/>
+```
+
+
+
+#### after-returning
+
+포인트컷으로 지정된 메소드가 정상적으로 실행되고 나서, 메소드 수행 결과로 생성된 데이터를 리턴하는 시점에 동작. 따라서 비즈니스 메소드 수행 결과로 얻은 결과 데이터를이용하여 사후 처리 로직을 추가할때 사용.
+
+``` java
+<aop:after-returning pointcut-ref="getPointcut" method="afterLog"/>
+```
+
+
+
+#### after-throwing
+
+포인트컷으로 지정한 메소드가 실행되다가 예외가 발생하는 시점에 동작. 따라서 예외 처리 어드바이스를 설정할 때 사용.
+
+``` java
+<aop:after-throwing pointcut-ref="" method=""/>
+```
+
+
+
+#### after
+
+try-catch-finally 구문에서 finally 블록처름 예외 발생 여부에 상관없이 무조건 수행되는 어드바이스를 등록할 때 사용.
+
+``` java
+<aop:after pointcut-ref=""method=""/>
+```
+
+
+
+#### around
+
+하나의 어드바이스가 비즈니스 메소드 실행 전과 후에 모두 동작하여 로직을 처리하는 경우에 사용.
+
+``` java
+<aop:around pointcut-ref=""method=""/>
+```
+
+
+
+## IV. JoinPoint와 바인드 변수
+
+#### JoinPoint 메소드
+
+- Signature getSignature() 
+  - 클라이언트가 호출한 메소드의 시그니처(리턴타입, 이름, 매개변수) 정보가 저장된 Signature 객체 리턴
+
+- Object [] getArgs() 
+  - 클라이언트가 메소드를 호출할 때 넘겨준 인자 목록을 Object 배열로 리턴
+- String getName() 
+  - 클라이언트가 호출한 메소드 이름 리턴
+
+
+
+
+
+
+
+
+
+
+
+
+
+Spring JDBC(x), ORM(Mybatis) : JDBC를 쉽게 개발하기 위한 프레임워크
+
+Sprin MVC
+
+
+
+
+
+
 
 
 
