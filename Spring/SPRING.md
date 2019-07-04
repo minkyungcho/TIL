@@ -278,15 +278,57 @@ try-catch-finally 구문에서 finally 블록처름 예외 발생 여부에 상�
 
 
 
-Spring JDBC(x), ORM(Mybatis) : JDBC를 쉽게 개발하기 위한 프레임워크
+4. Spring JDBC(x), ORM(Mybatis) : JDBC를 쉽게 개발하기 위한 프레임워크
+   - 패키지 구조 com.
+     - frame - Biz, Dao
+     - vo : value object - Product, User
+     - user
+     - product
+     - app
+     - mybatis : mybatis에서 사용하는 xml
+   - myspring.xml
+     - aop, bean, p, context, tx 네임스페이스 추가
+     - <context:component-scan base-package="com.*"/>
+     - 트랜잭션 어노테이션 이용 <tx:annotation-driven transaction-manager="txManager"/>
+     - DB 세팅
+     - 트랜잭션 세팅 - DATAsOURCE 사용
+     - mybatis 세팅 - dataSource 필요, 환경설정 파일 위치
+       - mybatis.xml 수정
+       - 통로역할하는 mapper 생성
+         - UserMapper, ProductMapper
 
-Sprin MVC
+5. Sprin MVC
+
+
+
+# 03
+
+## I. MyBatis 프레임워크 시작하기
+
+- MyBatis : DB와 편하게 커뮤니케이션을 할 수 있도록 도와주는 프로그래밍을 짜는 프레임워크
+- 상당부분을 xml로 관리. sql 문장 포함
+
+### 프로젝트 생성
 
 
 
 
 
+## II. 
 
 
 
+@transactional: 이 함수를 트랜잭셔널하게 동작시킨다. 
 
+- 아이디가 중복되어 두번 연속으로 insert 될때 1번째는 들어가고 2번째는 error로 인해 안들어가게 되는 현상을 둘다 안들어 가게끔 해결해준다. 
+
+
+
+## III. Spring MVC
+
+- web.xml에 환경설정
+  - dispatcher 등록
+  - 한글 깨짐 현상 해결 filter
+- spring.xml 세팅
+  - ViewResolver
+- 
