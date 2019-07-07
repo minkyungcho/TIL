@@ -332,3 +332,21 @@ try-catch-finally 구문에서 finally 블록처름 예외 발생 여부에 상�
 - spring.xml 세팅
   - ViewResolver
 - 
+
+
+
+# 04
+
+## I. Model1
+
+
+
+
+
+## II. Model2
+
+### MVC 아키텍쳐
+
+- 컨트롤러 등장
+- 
+
