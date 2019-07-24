@@ -53,3 +53,436 @@ server 변경
 
 
 
+#### 디렉토리 만들기 mkdir
+
+```
+mkdir vitest
+cd vitest
+```
+
+#### 파일 생성 touch
+
+```
+touch t2.txt
+vi t2.txt
+```
+
+#### 명령모드에서 상하좌우
+
+h 좌 j 하 k 상 l 우
+
+a : 오른쪽에 insert
+
+i : 왼쪽에 insert
+
+A : 문장 맨 끝에 오른쪽 insert 
+
+I : 문장 맨 앞에 왼쪽 insert
+
+#### 원복 vim -r
+
+```
+vim -r t2.txt
+rm .t2.txt.swp
+```
+
+#### mount 되어 있는 CD를 분리시키기
+
+```
+umount /dev/cdrom
+```
+
+/run/media/root 에 존재했던 CentOS 7 x86_64 사라진것 확인
+
+#### 특정 dir에 cdrom mount
+
+```bash
+mkdir mycdrom
+mount /dev/cdrom /mycdrom
+cd /mycdrom
+ls 
+mount
+umount /mycdrom
+```
+
+폴더 생성한 후 그 폴더에 마운트해야함
+
+![](../../Public/Pictures/Sample Pictures/Desert.jpg)
+
+![]()
+
+셸 : 리눅스 사용자들 마다의 테마를 부여할 수 있음
+
+```bash
+useradd user1
+passwd user1
+암호 입력 : 111111
+tail passwd로 확인
+```
+
+
+
+```
+alias rm ='rm -i'
+alias ls ='ls -l'
+alias ll ='clear'
+```
+
+
+
+home dir에는 사용자 정보가 들어있어서 백업할때 home을 통째로 백업함.
+
+```
+chmod 666 cc.txt
+
+```
+
+x 권한 : 실행 권한 (폴더 접근)
+
+./runls.sh : 현재 디렉토리 아래에 있는 sh파일 실행하겠다
+
+PATH=.:$PATH  :  현재 디렉토리를 path로 지정해줌.
+
+
+
+##### 바이러스가 없는 리눅스?
+
+
+
+#### 파일의 소유권
+
+- dir의 그룹 소유권 변경 : mudir을 multi 그룹의 소유로 바꿔줌.
+
+  ```
+  chgrp multi mudir
+  ```
+
+#### 링크
+
+- 윈도우에서는 인터넷익스플로러 바로가기를 바탕화면에 만드는것과 같음
+
+- 심볼릭 링크
+
+  - 원본파일과 연결되는 링크파일
+
+  - 원본파일의 포인터를 가리킴
+
+    ```
+    ln -s linktest/ltest slink
+    ```
+
+    
+
+- 하드링크
+
+  - 파일사이즈가 동일하면서 링크 걸림. 또다른 공간에 동일한 파일을 생성하여 연결하여 사용
+
+  - 원본파일과 동일한 위치 지칭
+
+  - 하드링크 삭제해도 원본파일 존재해서 괜찮음
+
+    ```
+     ln linktest/ltest hlink
+    ```
+
+```
+[root@server1 ~]# ls -il
+ 37327614 -rw-------  2 root root 1525  7월 23 10:10 hlink
+ 37341079 lrwxrwxrwx  1 root root   14  7월 23 10:12 slink ->
+ linktest/ltes
+```
+
+ which java : 자바 위치 알려주는 명령어
+
+### 리눅스 관리자를 위한 명령어
+
+#### 1. 프로그램 설치를 위한 RPM
+
+#### RPM
+
+- 프로그램을 설치한 후에 바로 실행할 수 있는 설치 파일.
+- 설치 파일의 확장명 .rpm (패키지)
+- 설치 : rpm -Uvh 패키지파일이름.rpm
+- 삭제 : rpm -e 패키지이름
+- 단점 
+  - '의존성' 문제 : 한 패키지가 설치되기 위해선 관련있는 다른 패키지가 먼저 설치되어야한다.
+
+#### 2. 편리하게 패키지를 설치하는 YUM
+
+#### YUM
+
+
+
+#### oracle 특징
+
+- 데이터저장소
+- listener
+- 관리
+
+
+
+#### 파일 압축과 묶기
+
+압축은 디렉토리에 못하고 하나의 파일에다가 초면ㅇㅊㅇ
+
+
+
+#### 파일 위치 검색
+
+- find + 경로 + 옵션 + 조건
+
+```
+find /etc -name *.conf
+find /home -user user1
+find /usr/bin -perm 644
+find /usr/bin -size +10k -size +100k
+find ~ -size 0k -exec cp {} temp \;
+```
+
+- which + 실행파일이름 : PATH 에 설정된 dir만 검색 
+- whereis + 실행파일이름 : 실행 파일, 소스, man 페이지 파일까지 검색
+- locate + 파일이름 : 명령어 실행이후에 찾을 수 있음
+
+```
+[root@server1 temp]# whereis java
+java: /usr/bin/java /usr/lib/java /etc/java /usr/share/java /usr/share/man/man1/java.1.gz
+[root@server1 temp]# which java
+/usr/bin/java
+```
+
+
+
+#### 시스템 설정
+
+- 방화벽 설정
+  - firewall-config
+
+
+
+### TOMCAT 연동
+
+#### 환경설정
+
+- etc/profile
+
+```
+JAVA_HOME=/etc/jdk1.8
+export JAVA_HOME
+CLASSPATH=$JAVA_HOME/lib
+export CLASSPATH
+PATH=.:$JAVA_HOME/bin:$PATH
+```
+- reboot
+
+- firewall-config
+
+  - 런타임, 영구적 - 서비스 - :ballot_box_with_check: http
+
+#### tomcat 다운로드
+
+- conf/server.xml
+  - line 69 : port 80으로 변경
+
+>  /root/file/apache-tomcat-9.0.22/bin
+
+
+- shutdown.sh : 톰캣 종료
+
+- startup.sh : 톰캣 시작
+
+  ```
+  [root@server1 bin]# startup.sh 
+  Using CATALINA_BASE:   /root/file/apache-tomcat-9.0.22
+  Using CATALINA_HOME:   /root/file/apache-tomcat-9.0.22
+  Using CATALINA_TMPDIR: /root/file/apache-tomcat-9.0.22/temp
+  Using JRE_HOME:        /etc/jdk1.8
+  Using CLASSPATH:       /root/file/apache-tomcat-9.0.22/bin/bootstrap.jar:/root/file/apache-tomcat-9.0.22/bin/tomcat-juli.jar
+  Tomcat started.
+  ```
+  
+
+
+### ECLIPSE 설치
+
+#### eclipse 다운로드
+
+- file 폴더에 eclipse 파일 복붙
+
+- 압축파일 풀기
+
+  ```
+  tar xvf eclipse~
+  ```
+
+- /etc에 eclipse copy
+
+  ```
+  cp -r eclipse /etc
+  ```
+
+- /usr/bin 에서 'eclipse' 심볼릭링크 생성
+
+  ```
+  ln -s /etc/eclipse/eclipse eclipse
+  ```
+
+- eclipse 명령어 입력으로 eclipse 열기
+
+
+
+
+
+1. network 설정
+
+   /etc/sysconfig/network-scripts/ifcfg-ens33
+
+   systemctl restart network
+
+2. user 설정
+
+   useradd
+
+   permission
+
+   chmod, chown, chgrp
+
+3. tar, zip(unzip)
+
+4. rpm, yum(localinstall, install)
+
+5. Program setting
+
+   JDK, Eclipse, Tomcat
+
+   etc/profile 에서 환경설정
+
+   /usr/bin(PATH에 잡혀있음) 에 링크 생성 ln -s
+
+   firewall-config : 포트 열기(1521 listner, 80 관리자)
+
+
+
+### cron
+
+p.233
+
+- 주기적으로 반복되는 일을 자동으로 실행 할 수 있도록 시스템 작업을 예약해 놓는 것
+
+```
+00 05 1 * * root cp -r /home /backup
+```
+
+매월 1일 5시 0분에 실행한다. /home dir을 /backup dir에 복사
+
+- crontab에 설정 추가
+
+  - 매월 24일 11시 10분에 /home을 /backup dir에 복사
+
+  ```
+  10 11 24 * * root cp -r /home /backup
+  ```
+
+- crond 확인
+
+  ```
+[root@server1 ~]# systemctl status crond
+crond.service - Command Scheduler
+   Loaded: loaded (/usr/lib/systemd/system/crond.service; enabled)
+   Active: active (running) since 수 2019-07-24 18:11:45 KST; 7h left
+ Main PID: 670 (crond)
+   CGroup: /system.slice/crond.service
+           └─670 /usr/sbin/crond -n
+   7월 24 18:11:45 server1 systemd[1]: Started Command Scheduler.
+   7월 24 18:11:45 server1 crond[670]: (CRON) INFO (RANDOM_DELAY will be scaled with factor 20% if used.)
+   7월 24 18:11:45 server1 crond[670]: (CRON) INFO (running with inotify support)
+  ```
+
+- /backup dir 가서 확인
+
+
+
+### at
+
+p.234
+
+- 일회성 작업을 예약하는것
+
+- 예약해 놓으면 한 번만 실행되고 소멸된다.
+
+  - 오늘 11:25에 /home 을 /backup 에 copy하고 reboot 해라
+
+  ```
+[root@server1 ~]# at 11:25 am today
+at> cp -r /home /backup
+at> reboot // ctrl + d
+job 1 at Wed Jul 24 11:25:00 2019
+[root@server1 ~]# at -l // 확인
+	1	Wed Jul 24 11:25:00 2019 a root
+	```
+
+### 네트워크
+
+- TCP/TP
+
+  - 프로토콜 : 컴퓨터끼리 네트워크상으로 의사소통하는 약속 
+  - TCP : 통신의 전송/수신
+  - IP : 데이터 통신
+
+- 호스트 이름과 도메인 이름
+
+  - 호스트 이름 : 각각의 컴퓨터에 지정된 이름
+
+  ```
+  hostname
+  hostnamectl set-hostname server1
+  /etc/hosts
+  192.168.111.111 	server1
+  ```
+
+  - 도메인 이름 : naver.com(IP 주소가 존재함)
+
+- IP 주소
+
+  - 원하는 도메인 IP 주소 확인하기
+
+  ```
+  [root@server1 ~]# nslookup
+  > www.naver.com
+  Server:		192.168.111.2
+  Address:	192.168.111.2#53
+  
+  Non-authoritative answer:
+  www.naver.com	canonical name = www.naver.com.nheos.com.
+  Name:	www.naver.com.nheos.com
+  Address: 210.89.164.90
+  Name:	www.naver.com.nheos.com
+  Address: 125.209.222.141
+  ```
+
+## Oracle DB 설치
+
+p.571
+
+> https://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/xe-prior-releases-5172097.html
+>
+> Oracle Database Express Edition (XE) Release 11.2.0.2.0 (11gR2)
+>
+> Linux x64
+
+### server에 리눅스용 Oracle DB 설치
+
+- ***step1*** /file 에 압축파일 복붙
+
+  ```
+  unzip oracle
+  -> Disk1 생김
+  ```
+
+- ***step2*** swap 늘려주기 4G 추가
+
+- ***step3*** oracle을 사용할 수 있는 포트 열기
+
+- ***step4*** 웹에서 oracle에 접속해보기
+
+
+
