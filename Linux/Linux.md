@@ -504,7 +504,7 @@ war : web application archive
 
 ##### 7/25
 
-![](oracledb.PNG)
+![](../img/oracledb.PNG)
 
 ## eclipse와 oracleDB 연동
 
