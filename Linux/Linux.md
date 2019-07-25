@@ -486,3 +486,381 @@ p.571
 
 
 
+
+
+
+
+부팅usb에 리눅스 io파일 넣고..!
+
+
+
+war : web application archive
+
+- web app의 묶음
+
+
+
+
+
+##### 7/25
+
+![](oracledb.PNG)
+
+## eclipse와 oracleDB 연동
+
+eclipse의 'oracledb'프로젝트 buildpath에  oracledb library 추가
+
+`Test.java 파일`
+
+```java
+package oracledb;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class Test {
+
+	public static void main(String[] args) throws Exception{
+		
+		String id="db";
+		String pwd="db";
+		String url="jdbc:oracle:thin:@192.168.111.111:1521:XE";
+		
+		Class.forName("oracle.jdbc.OracleDriver");
+		
+		Connection con = DriverManager.getConnection(url, id, pwd);
+		
+		String sql ="SELECT * FROM DEPT";
+		
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		
+		ResultSet rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+			int deptno = rset.getInt("DEPTNO");
+			String dname = rset.getString("DNAME");
+			String loc = rset.getString("LOC");
+			System.out.println(deptno+" "+dname+" "+loc);
+		}
+	}
+
+}
+```
+
+
+
+## eclipse 프로젝트를 war파일로 export하여 TOMCAT에 배포
+
+#### CASE 1
+
+***step1*** eclipse에서 'test' dynamic web project 생성
+
+- 'web' 에 index.jsp 생성
+- http://70.12.114.62/test/ 에서 동작 확인
+
+***step2*** 'test' (우클) - Export - WAR file => test.war 생성
+
+- 'server1'의 /file에 'test.war' 복사 붙여넣기
+
+- tomcat 동작 확인 => 동작 X
+
+  ```
+  [root@server1 file]# ps -ef | grep tomcat
+  root      7834  3897  0 11:07 pts/0    00:00:00 grep --color=auto tomcat
+  
+  ```
+
+- /root/file/apache-tomcat-9.0.22/webapps 에 war 파일 복사붙여넣기
+
+  ```
+  cp ~/file/*.war .
+  ```
+
+- /root/file/apache-tomcat-9.0.22/bin 에서 tomcat 실행
+
+  ```
+  startup.sh
+  ```
+
+- /root/file/apache-tomcat-9.0.22/webapps 에 'test' dir 생김
+
+  : 서버가 돌아가면서 자동으로 생성됨
+
+- http://192.168.111.111/test/ 에서 동작 확인
+
+
+
+#### CASE 2
+
+***step1*** eclipse에서 'test2' dynamic web project 생성
+
+- "context root : / " 로설정 변경
+- 'web' 에 index.jsp 생성
+- http://70.12.114.62/ 에서 동작 확인
+
+***step2*** 'test2' (우클) - Export - WAR file => test2.war 생성
+
+- 'server1'의 /file에 'test2.war' 복사 붙여넣기
+
+- /root/file/apache-tomcat-9.0.22/webapps 에 war 파일 복사붙여넣기
+
+  ```
+  cp ~/file/*.war .
+  ```
+
+- /webapps 에서 ROOT dir 이름 변경
+
+  ```
+  mv ROOT ROOT_BACK
+  mv test2 ROOT
+  ```
+
+- 서버 종료 후 재시작
+
+  ```
+  ./shutdown.sh
+  startup.sh
+  ```
+
+- http://192.168.111.111/ 에서 동작 확인
+
+
+
+#### 파이프, 필터, 리다이렉션
+
+**파이프** : 2개의 프로그램
+
+```
+ls -l /etc | more
+```
+
+**필터** : 필요한 것만 걸러주는 명령어
+
+```
+ps -ef | grep oracle
+```
+
+**리다이렉션** : 표준 입출력의 방향을 바꾼다
+
+
+
+## MariaDB 설치 p.554
+
+centOS + MariaDB + Web Server
+
+> https://downloads.mariadb.org/mariadb/10.0.15/ 
+>
+> -> [centos7-amd64](http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.0.15/yum/centos7-amd64/)/ -> [rpms](http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.0.15/yum/centos7-amd64/rpms/)/
+>
+> [MariaDB-10.0.15-centos7_0-x86_64-common.rpm](http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.0.15/yum/centos7-amd64/rpms/MariaDB-10.0.15-centos7_0-x86_64-common.rpm)
+>
+> [MariaDB-10.0.15-centos7_0-x86_64-client.rpm](http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.0.15/yum/centos7-amd64/rpms/MariaDB-10.0.15-centos7_0-x86_64-client.rpm)
+>
+> [MariaDB-10.0.15-centos7_0-x86_64-server.rpm](http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.0.15/yum/centos7-amd64/rpms/MariaDB-10.0.15-centos7_0-x86_64-server.rpm)
+
+
+
+### 실습1 p.554
+
+`server를 DBMS 전용 서버로 운영`
+
+1. /root/file/maria 에 3개 파일 복사 붙여넣기
+
+2. step2 진행
+
+### 실습2 p.560
+
+`MariaDB의 기본적인 보안환경 설정`
+
+1. step1 진행
+
+   ```
+   mysqladmin -u root password '111111'
+   mysql => 접속 불가
+   mysql -u root -p => 비밀번호 111111 입력 후 접속
+   ```
+
+2. step4 진행
+
+   `'mysql' 데이터베이스에 있는 'user' 테이블 조회`
+
+   ```
+   MariaDB [(none)]> USE mysql;
+   
+   MariaDB [mysql]> SELECT user, host FROM user;
+   +------+-----------+
+   | user | host      |
+   +------+-----------+
+   | root | 127.0.0.1 |
+   | root | ::1       |
+   |      | localhost |
+   | root | localhost |
+   |      | server2   |
+   | root | server2   |
+   +------+-----------+
+   ```
+
+   `IP 주소를 사용하여 접속할 수 있도록 사용자 생성`
+
+   ```
+   MariaDB [mysql]> GRANT ALL PRIVILEGES ON *.* TO user1@'192.168.111.%' IDENTIFIED BY '111111';
+   
+   MariaDB [mysql]> GRANT ALL PRIVILEGES ON *.* TO user1@'70.12.114.%' IDENTIFIED BY '111111';
+   
+   MariaDB [mysql]> GRANT ALL PRIVILEGES ON *.* TO user1@'localhost' IDENTIFIED BY '111111';
+   ```
+
+   `'user' 테이블 다시 조회하여 사용자 생성 확인`
+
+   ```
+   MariaDB [mysql]> SELECT user, host FROM user;
+   +-------+---------------+
+   | user  | host          |
+   +-------+---------------+
+   | root  | 127.0.0.1     |
+   | user1 | 192.168.111.% |
+   | user1 | 70.12.114.%   |
+   | root  | ::1           |
+   |       | localhost     |
+   | root  | localhost     |
+   | user1 | localhost     |
+   |       | server2       |
+   | root  | server2       |
+   +-------+---------------+
+   ```
+
+   `user1 으로 접속`
+
+   ```
+   mysql -u user1 -p => 비밀번호 111111 입력 후 접속
+   ```
+
+### 실습3 p.567
+
+`쇼핑몰 데이터베이스 MariaDB 서버에 구축`
+
+1. step0 진행
+
+   ```
+   mysql -u user1 -p 
+   ```
+
+2. step1진행
+
+   `'shop' 데이터베이스 생성하고 확인 `
+
+   ```
+   MariaDB [(none)]> create database shop;
+   
+   MariaDB [(none)]> use shop;
+   
+   MariaDB [shop]> show databases;
+   +--------------------+
+   | Database           |
+   +--------------------+
+   | information_schema |
+   | mysql              |
+   | performance_schema |
+   | shop               |
+   | test               |
+   +--------------------+
+   ```
+
+   `'shop'에 PRODUCT 테이블 생성`
+
+   ```sql
+   CREATE TABLE PRODUCT(
+   	ID INT PRIMARY KEY,
+   	NAME NVARCHAR(20) NOT NULL,
+   	PRICE INT NOT NULL,
+   	REGDATE DATE
+   );
+   ```
+
+   `data INSERT`
+
+   ```sql
+   INSERT INTO PRODUCT VALUES (100,'pants1', 10000, SYSDATE());
+   INSERT INTO PRODUCT VALUES (101,'pants2', 20000, SYSDATE());
+   INSERT INTO PRODUCT VALUES (102,'pants3', 30000, SYSDATE());
+   INSERT INTO PRODUCT VALUES (103,'pants4', 40000, SYSDATE());
+   INSERT INTO PRODUCT VALUES (104,'pants5', 50000, SYSDATE());
+   ```
+
+   `data 확인`
+
+   ```
+   MariaDB [shop]> select * from PRODUCT;
+   +-----+--------+-------+------------+
+   | ID  | NAME   | PRICE | REGDATE    |
+   +-----+--------+-------+------------+
+   | 100 | pants1 | 10000 | 2019-07-25 |
+   | 101 | pants2 | 20000 | 2019-07-25 |
+   | 102 | pants3 | 30000 | 2019-07-25 |
+   | 103 | pants4 | 40000 | 2019-07-25 |
+   | 104 | pants5 | 50000 | 2019-07-25 |
+   +-----+--------+-------+------------+
+   ```
+
+
+
+
+
+## eclipse와 MariaDB 연동
+
+> https://downloads.mariadb.org/connector-java/2.4.2/
+>
+> -> [MariaDB Connector/J .jar files](https://downloads.mariadb.com/Connectors/java/connector-java-2.4.2)
+>
+> -> [mariadb-java-client-2.4.2.jar](https://downloads.mariadb.com/Connectors/java/connector-java-2.4.2/mariadb-java-client-2.4.2.jar)
+
+eclipse의 'oracledb'프로젝트 buildpath에  library 추가
+
+`Test2.java`
+
+```java
+package oracledb;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class Test2 {
+
+	public static void main(String[] args) throws Exception{
+		
+		String id="user1";
+		String pwd="111111";
+		String url="jdbc:mariadb://192.168.111.111:3306/shop";
+		
+		Class.forName("org.mariadb.jdbc.Driver");
+		
+		Connection con = DriverManager.getConnection(url, id, pwd);
+		
+		String sql ="SELECT * FROM PRODUCT";
+		
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		
+		ResultSet rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+			int iid = rset.getInt("ID");
+			String name = rset.getString("NAME");
+			int price = rset.getInt("PRICE");
+			String date= rset.getString("REGDATE");
+			System.out.println(iid+" "+name+" "+price+" "+date);
+		}
+	}
+
+}
+```
+
+
+
+workshop
+
+1. 서버2에 오라클과 마리아디비 설치
+2. 서버1의 마리아디비에서 프로덕트 데이터를 조회하여 조회한 데이터를 서버2의 오라클과 마리아디비에 insert하시오
