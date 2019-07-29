@@ -865,3 +865,118 @@ workshop
 
 ##### 7/26
 
+
+
+
+
+##### 7/29
+
+fdisk : 파티션 나누기
+
+## 6.2 여러 개의 하드디스크를 하나처럼 사용하기
+
+hdd 삭제
+
+- fdisk에서 mount 취소하고 삭제해야함
+
+  ```
+  vi /etc/fstab
+  // 맨 아래에 추가해 놓은 문장 주석처리 
+  ```
+
+
+#### RAID
+
+- 여러개의 하드디스크를 하나의 하드디스크처럼 사용하는 방식
+- 비용 절감, 신뢰성 증가, 성능 향상
+- HW RAID는 SW RAID보다 좀 안정적이지만 매우 비싸다.
+
+Linear RAID : 앞 하드디스크에 데이터가 완전히 저장된 후, 순차적으로 다음 하드데스크에 다음 데이터를 저장
+
+RAID0 : 속도 아주 빠름
+
+RAID1 :  하드디스크 한장 날라가도 한장 남아 있음.
+
+RAID5 : 속도 빠르고 데이터 보장.
+
+RAID6 : 
+
+1. 각각의 Disk를 fdisk - fd(파일형식 Linux raid로 변경)
+
+   ```
+   fdisk /dev/sdb
+   ```
+
+2. mdadm로 포멧 후 disk 묶기
+
+   ```
+   mdadm --create /dev/md9 --level=linear --raid-devices=2 /dev/sdb1 /dev/sdc1  // => RAID 생성
+   mdam --detail --scan  // => RAID 확인
+   ```
+
+3. mkfs.ext4
+
+   ```
+   mkfs.ext4 /dev/md9
+   ```
+
+4. linear 폴더 생성
+
+   ```
+   mkdir /linear
+   ```
+
+5. mount
+
+   ```
+   mount /dev/md9 /linear
+   ```
+
+6. /etc/fstab에 등록
+
+   ```
+   vi /etc/fstab
+   // 마지막줄에 추가
+   /dev/sdb1		/linear		ext4	defaults	1 2
+   ```
+
+
+
+
+
+
+
+raid1linear
+
+- 1+2=3G
+- 
+
+raid0 : 
+
+- 1+1=2
+- 동시에 공간확보 (복제)
+
+ raid1
+
+- 1g
+
+raid5
+
+- 1+1+1=2
+- 디스크 3장이지만 쓸수 있는 공간은 2G
+
+
+
+#### RAID 문제 발생과 조치 방법 p.361
+
+1. Hard Dist 3,5,7,9 remove
+2. /etc/fstab 디스크 속성 정의해주는 문장 삭제 후 reboot
+3. linear, raid0 복구 안됨. 다시 만들어야함
+   - linear : 두개 쌍으로 움직일때 복구 x
+   - raid0 : 복구 불능
+4. raid1, raid5는 정상이므로 하드디스크 증설.
+
+
+
+mdam : 포멧과 특정 폴더에 마운트까지 하는 명령어
+
