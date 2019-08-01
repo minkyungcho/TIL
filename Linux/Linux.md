@@ -942,10 +942,6 @@ RAID6 :
 
 
 
-
-
-
-
 raid1linear
 
 - 1+2=3G
@@ -978,5 +974,210 @@ raid5
 
 
 
-mdam : 포멧과 특정 폴더에 마운트까지 하는 명령어
+##### 7/30
+
+
+
+## 6.3 LVM p.386
+
+### LVM 개념 이해
+
+- Logical Volume Manager
+- 여러개의 디스크를 한개의 파티션으로 합친 후, 다시 필요에 따라 쪼개서 사용
+- 사용자들에게 할당되는 디스크
+- 볼륨
+  - 물리 볼륨(Physical Volume) : /dev/sda1, /dev/sdb1 등의 파티션
+  - 볼륨 그룹(Volume Group) : 물리 볼륨을 합쳐서 1개의 물리 그룹으로 만든것
+  - 논리 볼륨(Logical Volume) : 볼륨 그룹을 1개 이상으로 나눈 것(=논리적 그룹)
+
+### LVM 구현
+
+1. 서버에 2GB, 3GB 용량의 하드디스크 추가
+
+2. 선처리 작업
+
+   - 하드디스크에 파티션 할당
+
+   ```
+   fdisk /dev/sdb
+   // 파일시스템 유형 : 8e
+   ```
+
+   - 물리적 볼륨 생성
+
+   ```
+   pvcreate /dev/sdb1
+   pvcreate /dev/sdc1
+   ```
+
+   - 볼륨 그룹 생성 : 두개의 물리적 볼륨 하나로 묶기
+
+   ```
+   vgcreate myVG /dev/sdb1 /dev/sdc1
+   vgdisplay // 볼륨 그룹 생성 확인
+   ```
+
+3. 볼륨 그룹 파티션 생성
+
+   ```
+   lvcreate --size 1G --name myLG1 myVG
+   lvcreate --size 3G --name myLG2 myVG
+   lvcreate --extents 100%FREE --name myLG3 myVG // 나머지 용량 모두 할당
+   ls -l /dev/myVG // 디렉토리 확인
+   ```
+
+4. 파일시스템 생성
+
+   ```
+   mkfs.ext4 /dev/myVG/myLG1
+   mkfs.ext4 /dev/myVG/myLG2
+   mkfs.ext4 /dev/myVG/myLG3
+   ```
+
+5. 디렉토리 생성 후 마운트
+
+	```
+	mkdir /lvm1 /lvm2 /lvm3  // 디렉토리 생성
+	mount /dev/myVG/myLG1 /lvm1  // mount
+	mount /dev/myVG/myLG2 /lvm2
+	mount /dev/myVG/myLG3 /lvm3
+	df  // 확인
+	```
+
+6. 컴퓨터 결때마다 마운트되도록 설정
+
+   - vi로 /etc/fstab 열어서 맨 아래에 추가
+
+   ```
+   /dev/myVG/myLG1  /lvm1  ext4  defaults  1 2
+   /dev/myVG/myLG2  /lvm2  ext4  defaults  1 2
+   /dev/myVG/myLG3  /lvm3  ext4  defaults  1 2
+   ```
+
+
+
+## 6.4 RAID 에 CentOS 설치하기 p.392
+
+### 실습 12
+
+2개의 30GB 하드디스크에서 RAID1으로 안전하게 작동되는 CentOS를 새로 설치하자
+
+### *step0*
+
+가상머신 생성
+
+### *step1*
+
+
+
+### *step2*
+
+
+
+### *step3*
+
+
+
+### *step4*
+
+
+
+fdisk -l /dev/sda 로 확인
+
+fdisk /dev/sdb 파티션 1,2로 나누기
+
+fdisk로 파티션1,2 할당
+
+
+
+gnome없이 jdk, tomcat 설치해야함
+
+https://download.oracle.com/otn/java/jdk/8u221-b11/230deb18db3e4014bb8e3e8324f81b43/jdk-8u221-linux-x64.rpm
+
+
+
+##### 7/31
+
+# 07. 셸 스크립트 프로그래밍
+
+## 7.1 셸의 기본
+
+윈도우의 DOC와 같음
+
+chmod 744 *
+
+name.sh
+
+
+
+
+
+para2.sh /home /mybackup
+
+echo "start,,,"
+tar cvfJ $1.tar.xz $1
+mv $1.tar.xz $2
+echo "end..."
+
+
+
+
+
+ para3.sh /home sh /shfile
+
+
+
+##### 8/1
+
+## shell script code
+
+
+
+ wget http://70.12.114.62/test/jdk1.8.tar.gz
+
+
+
+envset.sh 실행시키면 jdk,톰캣,이클립스를 서버에 설치
+
+메뉴를 구성 하여 설치를 진행 한다.
+
+단 설치가 되어 있을 경우 삭제 후 설치를 진행 한다.
+
+중간에 사용자에게 물어 보면서 진행(삭제하시겠습니까? 설치하시겠습니까?)
+
+1. jdk 설치
+
+   /etc/jdk1.8
+
+   /usr/bin/java	softlink
+
+   ```
+   tar xvzf jdk1.8.tar.gz -C /root/filetemp/temp
+   ```
+
+   
+
+2. tomcat 설치
+
+   /etc/tomcat
+
+   /usr/bin/startcat	softlink
+
+   /usr/bin/stopcat	softlink
+
+   
+
+3. eclipse 설치
+
+   /etc/eclipse
+
+   /usr/bin/eclipse	softlink
+
+   
+
+4. 
+
+server에 이클립스, 톰캣, jdk 복사
+
+server 실행
 
