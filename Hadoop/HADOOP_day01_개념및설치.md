@@ -26,7 +26,7 @@
 
 
 
-<img src="C:\Users\student\Desktop\가상분산모드.png" width="250px">
+<img src="../img/가상분산모드.png" width="250px">
 
 
 
