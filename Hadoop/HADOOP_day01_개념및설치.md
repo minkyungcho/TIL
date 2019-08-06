@@ -1,6 +1,8 @@
-## *part01*
+# I. 하둡기초
 
-# 빅데이터
+## *part01 하둡살펴보기*
+
+## 빅데이터
 
 - 데이터를 수집, 저장, 관리, 분석하는 역량을 넘어서서 데이터(정형, 비정형) 집합으로부터 가치를 추출하고 결과를 분석하는 기술
 
@@ -16,9 +18,9 @@
 
 
 
-## *part02*
+## *part02 하둡개발 준비*
 
-# HADOOP
+## HADOOP
 
 - 독립 실행 모드 : 기본 실행 모드
 - 가상 분산 모드 : 하나의 서버에 완벽한 분산 환경 구축
@@ -31,6 +33,8 @@
 
 
 ## 하둡 설치
+
+:white_check_mark: HADOOPSERVER1 복붙해서 HADOOP1 만들어두기
 
 #### *step00 필요한 파일 확인*
 
@@ -223,7 +227,7 @@ Connection to hadoopserver1 closed.
 
   ```
   export JAVA_HOME=/etc/jdk1.8
-  export HADOOP_HOME_WARN_SUPPRESS="TRUE"
+  export HADOOP_HOME_WARN_SUPPRESS="TRUE" // 오류메세지 발생 방지
   ```
 
 - /etc/bashrs 맨 아래에 추가 
