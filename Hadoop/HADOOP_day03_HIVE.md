@@ -188,7 +188,7 @@ hadoop jar hadoop-examples-1.2.1.jar wordcount /data/input /data/output
   [hive_db] > show databases;
   ```
 
-  <img src="../img/hive_db.PNG" weigth="300px">
+  <img src="../img/hive_db.png" weigth="300px">
 
 #### *sept02 HIVE 세팅*
 
