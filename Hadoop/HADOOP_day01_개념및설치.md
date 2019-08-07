@@ -28,7 +28,7 @@
 
 
 
-<img src="../img/가상분산모드.png" width="250px">
+<img src="C:\Users\student\Desktop\가상분산모드.png" width="250px">
 
 
 
@@ -59,6 +59,7 @@
 - firewall 설정 변경
 
   ``` 
+  systemctl stop firewalld
   systemctl disable firewalld
   ```
 
@@ -335,11 +336,11 @@ Connection to hadoopserver1 closed.
 
   - /data/output1 디렉토리 자동 생성되면서 분석됨
 
-    ![](../img/output.PNG)
+    ![](../Desktop/output.PNG)
 
   - part-r-00000 file에서 분석값 확인
 
-    ![](../img/분석.PNG)
+    ![](../Desktop/분석.PNG)
 
     - 단어가 몇번 쓰였는지 옆에 숫자로 나타나있는걸 확인할 수 있다.
 
