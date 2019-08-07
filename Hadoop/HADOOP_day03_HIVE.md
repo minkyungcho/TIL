@@ -318,13 +318,13 @@ filetemp > cp mariadb-java-client-1.3.5.jar /etc/hive/lib/
 hive > CREATE TABLE HDI(id INT, country STRING, hdi FLOAT, lifeex INT, mysch INT, eysch INT, gni INT) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE;
 	```
 
-	- hdi 테이블 생성된 것 확인해보기
+- hdi 테이블 생성된 것 확인해보기
 	
-	  ```
-	  hive > show tables;
-	  ```
-	
-	  <img src="../img/hive_tables.PNG" weigth="400px">
+  ```
+  hive > show tables;
+  ```
+
+  <img src="../img/hive_tables.PNG" weigth="400px">
 
 - hdi_data.csv 파일 앞쪽 다 지우고 hdi.txt 로 이름바꾸고 home에 복사붙여넣기.
 
