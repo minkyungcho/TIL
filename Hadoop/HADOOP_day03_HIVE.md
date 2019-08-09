@@ -12,7 +12,7 @@ C:\Windows\System32\drivers\etc 의 hosts 맨 아래에 추가
 70.12.114.216 hadoopserver2
 ```
 
-<img src="../img/URL.png" weigth="300px">
+<img src="../img/URL.png" weigth="500px">
 
 
 
@@ -131,11 +131,11 @@ hadoop fs -rmr /mydir
 hadoop jar hadoop-examples-1.2.1.jar wordcount /data/input /data/output
 ```
 
-# V. 하둡 에코시스템
+# V. 하둡 에코시스템 P.564
 
 저장되어 있는 자료를 분석하기 위해
 
-<img src="../img/hadoop_hive연동.png" weigth="500px">
+<img src="../img/hadoop_hive연동.png" weigth="600px">
 
 #### *step00 필요 파일 확인*
 
@@ -179,7 +179,7 @@ hadoop jar hadoop-examples-1.2.1.jar wordcount /data/input /data/output
   [mysql] > select user,host from user;
   ```
 
-  <img src="../img/host.PNG" weigth="300px">
+  <img src="../img/host.png" weigth="400px">
 
 - hive로 접속
 
@@ -188,7 +188,7 @@ hadoop jar hadoop-examples-1.2.1.jar wordcount /data/input /data/output
   [hive_db] > show databases;
   ```
 
-  <img src="../img/hive_db.png" weigth="300px">
+  <img src="../img/hive_db.png" weigth="400px">
 
 #### *sept02 HIVE 세팅*
 
@@ -318,13 +318,13 @@ filetemp > cp mariadb-java-client-1.3.5.jar /etc/hive/lib/
 hive > CREATE TABLE HDI(id INT, country STRING, hdi FLOAT, lifeex INT, mysch INT, eysch INT, gni INT) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE;
 	```
 
-- hdi 테이블 생성된 것 확인해보기
+	- hdi 테이블 생성된 것 확인해보기
 	
-  ```
-  hive > show tables;
-  ```
-
-  <img src="../img/hive_tables.PNG" weigth="400px">
+	  ```
+	  hive > show tables;
+	  ```
+	
+	  <img src="../img/have_tables.png" weigth="400px">
 
 - hdi_data.csv 파일 앞쪽 다 지우고 hdi.txt 로 이름바꾸고 home에 복사붙여넣기.
 
@@ -340,7 +340,7 @@ hive > CREATE TABLE HDI(id INT, country STRING, hdi FLOAT, lifeex INT, mysch INT
   hive > select id, country from hdi;
   ```
 
-  <img src="../img/hdi확인.PNG" weigth="300px">
+  <img src="../img/hdi확인.png" weigth="400px">
 
 	```
 hive > select * from hdi limit 5;
