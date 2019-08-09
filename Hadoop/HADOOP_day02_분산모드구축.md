@@ -244,7 +244,7 @@ scp hadoop.tar.gz root@hadoop2,3,4:/etc
 
 ssh root@hadoop2,3,4 "cd /etc;tar xvfz hadoop.tar.gz;rm -rf hadoop.tar.gz"
 
-format
+hadoop namenode -format
 
 start-all.sh
 
@@ -289,5 +289,5 @@ hadoop jar hadoop-examples-1.2.1.jar wordcount /data/input /data/output
 
 ### workshop : 각각의 컴퓨터를 활용하여 분산 모드 환경 구축하기
 
-<img src="../img/HADOOP_분산환경_브릿지활용_ws.jpg" width="800px">
+![../img/HADOOP_분산환경_브릿지활용_ws]()
 
