@@ -219,7 +219,7 @@ tiris <- tapply(iris$Sepal.Length, iris$Species, mean)
      5.006      5.936      6.588, 밧컵소라보허
 ```
 
-- agrrgoata
+
 
 
 
