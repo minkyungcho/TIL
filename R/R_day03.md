@@ -274,6 +274,8 @@ com_max <- com_max[order(com_max$class,decreasing=T),]
 
 <img src="../img/Rplot_ws.png">
 
+> https://m.blog.naver.com/liberty264/221012414656 참고해서 그래프 그림
+
 **r3/r10_ws**
 
 ```R
