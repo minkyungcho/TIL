@@ -247,4 +247,4 @@ public void dialog(View view){
 
 **#2 P234**    [실습코드]()
 
-![../img/P234.png]()
+<img src="../img/P234.png" weigth="500px">
