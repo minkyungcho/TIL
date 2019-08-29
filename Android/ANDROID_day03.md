@@ -2,7 +2,7 @@
 
 #### 버튼 
 
-**P178**    [실습코드]()
+**P178**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day03/P178)
 
 버튼의 클릭 이벤트 처리하기 (정규방식)
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 ### 03-3 이벤트 처리 이해하기
 
-**P200**    [실습코드]()
+**P200**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day03/P200)
 
 방햔전환을 알수 있도록 **manifests**에서 속성 설정해주기.
 
@@ -115,7 +115,7 @@ public void showToast(String str){
 
 #### bundle 활용하기
 
-**P213**    [실습코드]()
+**P213**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day03/P213)
 
 버튼 누르면 특정 값 저장한 후 어플 다시 실행했을때 그 값 보여줄 수 있도록.
 
@@ -148,7 +148,7 @@ public void clickbt(View view){
 
 project - layout 우클릭 - new - XML - Layout XML File  
 
-**P217**    [실습코드]()
+**P217**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day03/P217)
 
 ##### toast
 
@@ -200,7 +200,7 @@ public void dialog(View view){
 
 #### 03-5 프로그래스바 사용하기
 
-**P228**    [실습코드]()
+**P228**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day03/P228)
 
 ```java
 // progressbar 제어
@@ -237,7 +237,7 @@ public void dialog(View view){
 
 ## workshop
 
-**#1 P233**    [실습코드]()
+**#1 P233**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day03/P233)
 
 시크바와 프로그레스바 보여주기
 
@@ -245,6 +245,6 @@ public void dialog(View view){
 
 
 
-**#2 P234**    [실습코드]()
+**#2 P234**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day03/P234)
 
 <img src="../img/P234.png" weigth="500px">
