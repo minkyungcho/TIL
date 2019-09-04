@@ -84,9 +84,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Item item = list.get(i);
-        Toast.makeText(this, ""+item.getPhone(), Toast.LENGTH_SHORT).show();
-        int permission = PermissionChecker.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
+        //Item item = list.get(i);
+        //Toast.makeText(this, ""+item.getPhone(), Toast.LENGTH_SHORT).show();
+        /*int permission = PermissionChecker.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
         Intent intent = new Intent();
         if(permission == PackageManager.PERMISSION_GRANTED){
             intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+"010-6737-0122"));
@@ -94,9 +94,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }else{
             Toast.makeText(this, "권한부여가 안되었습니다.", Toast.LENGTH_SHORT).show();
             return;
-        }
-        float temp = ratingBar.getRating()+1;
-        ratingBar.setRating(temp);
+        }*/
+//        float temp = ratingBar.getRating()+1;
+//        ratingBar.setRating(temp);
     }
 
     class ItemAdapter extends BaseAdapter{
@@ -142,12 +142,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             ratingBar.setNumStars(5);
             ratingBar.setMax(5);
             ratingBar.setStepSize(1);
-            final int a=i;
+            //Toast.makeText(MainActivity.this, ""+i, Toast.LENGTH_SHORT).show();
+            final int a = i;
+            ratingBar.setRating(itemList.get(a).num);
             myview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+//                    int a = i;
                     itemList.get(a).plus();
-                    ratingBar.setRating(itemList.get(a).num);
+                    itemAdapter.notifyDataSetChanged();
                 }
             });
             iv.setImageResource(itemList.get(i).getImgId());
