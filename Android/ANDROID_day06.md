@@ -2,7 +2,7 @@ webview : 네이티브 앱에 일정영역에 웹브라우저를 붙이는 것
 
 #### 08-3 앱 화면에 웹브라우저 넣기
 
-**P458**
+**P458**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day06/P458)
 
 웹뷰에 자바스크립트 동작하게 해주기.
 
@@ -44,7 +44,7 @@ cpu는 여유롭지만 메모리는 바쁘다.
 
 thread 내부 변수들은 변하면 안돼서 final로 설정
 
-**P474**
+**P474**   [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day06/P474)
 
 **Runnable은 Thread처럼 사용**
 
@@ -65,7 +65,7 @@ runOnUiThread(new Runnable() {
 
 
 
-**P478**
+**P478**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day06/P478)
 
 서브쓰레드에서 메세지를 main쓰레드에 보낸다 => 메인에 **handler** 생성
 
@@ -73,7 +73,7 @@ runOnUiThread(new Runnable() {
 
 #### 09-3 쓰레드로 메시지 전송하기
 
-**P485**
+**P485**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day06/P485)
 
 서브쓰레드와 메인쓰레드 간 자유로운 왕래는 불가능
 
@@ -87,6 +87,6 @@ runOnUiThread(new Runnable() {
 
 ## WORKSHOP
 
-**P488**
+**P488**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day06/P488)
 
 <img src="../img/P488.png" weigth="500px">
