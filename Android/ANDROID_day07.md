@@ -6,7 +6,7 @@ handler + thread 의 모습
 
 서브thread와 메인thread에서 아울러져서 작업이 진행됨
 
-**P490**
+**P490**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day07/P490)
 
 **AsyncTask<Integer, Integer, String>**
 
@@ -49,7 +49,7 @@ class SpeedTask extends AsyncTask<Integer,Integer, Integer>{
 
 ## WORKSHOP
 
-**P499**    
+**P499**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day07/P499)
 
 <img src="../img/P499.png" weigth="500px">
 
@@ -68,7 +68,7 @@ rpmTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 #### 10-3 웹으로 요청하기
 
-**P511**
+**P511**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day07/P511)
 
 네트워크에 갔다 오는건 반드시 thread 사용해야함.
 
@@ -76,4 +76,8 @@ rpmTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 ## WORKSHOP
 
-**P535**
+**P535**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day07/P535)
+
+<img src="../img/P535final.png" weigth="500px">
+
+SHOWDATA 버튼 누르면 오픈API json 데이터 가져와서 원하는 data(휴양림명, 전화번호, 면적) 목록 나타나게 하기 
