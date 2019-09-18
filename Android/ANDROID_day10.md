@@ -22,3 +22,5 @@ activity 두개 필요 : 로그인 화면, 지도 화면
 
 **workshop**    [실습코드](https://github.com/minkyungcho/TIL/tree/master/Android/day10)
 
+<img src="../img/android_day10_ws.png" weigth="500px">
+
