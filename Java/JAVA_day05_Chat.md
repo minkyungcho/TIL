@@ -217,11 +217,3 @@ public class ChatServlet extends HttpServlet {
 ```
 
 
-
----
-
-## WORKSHOP
-
-카카오톡 같은 채팅창 만들기
-
-[실습코드](https://github.com/minkyungcho/TIL/tree/master/Java/day05)
