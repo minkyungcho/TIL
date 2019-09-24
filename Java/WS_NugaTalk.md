@@ -8,7 +8,7 @@
 
 **시스템구성도**
 
-<img src="../img/NugaTalk_systemMap.png" weigth="500px">
+<img src="../img/NugaTalk_systemMap.jpg" weigth="500px">
 
 
 
