@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<!-- jQuery UI CSS파일  -->
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
+<!-- jQuery 기본 js파일 -->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<!-- jQuery UI 라이브러리 js파일 -->
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+<style>
+.ui-datepicker{ font-size: 15px; width: 200px; line-height: 2;}
+.ui-datepicker select.ui-datepicker-month{ width:40%; font-size: 14px; }
+.ui-datepicker select.ui-datepicker-year{ width:50%; font-size: 14px; }
+</style>
+
+<script>
+	$(function() {
+		$("#testDatepicker").datepicker({
+			/* 달력 img 삽입 */
+			showOn : "both",
+			buttonImage : "calendar2.png",
+			buttonImageOnly : true,
+
+			/* 달 이동 옵션 */
+			changeMonth : true,
+			changeYear : true,
+			nextText : '다음 달',
+			prevText : '이전 달',
+
+			/* 날짜 선택기의 하단 메뉴 설정 */
+			showButtonPanel : true,
+			currentText : '오늘 날짜',
+			closeText : '닫기',
+			
+			/* 날짜 형식 */
+			dateFormat : "yymmdd",
+			
+			/* 달력 형식 한글로 변환 */
+	        dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
+	        dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
+	        monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+	        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
+		});
+	});
+</script>
+<title>Full Calendar</title>
+
+
+</head>
+<body>
+	<h3>날짜를 선택하세요.</h3>
+	<input type="text" id="testDatepicker" size="15">
+	
+</body>
+</html>
