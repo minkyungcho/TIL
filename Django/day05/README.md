@@ -90,7 +90,7 @@ urlpatterns = [
 </html>
 ~~~
 - url과 페이지 확인
-<img src='../../img/django_day05_1.png'>
+<img src='../../img/django_day5_01.png'>
 
 - 로또번호 생성기 만들기
 ~~~ python
