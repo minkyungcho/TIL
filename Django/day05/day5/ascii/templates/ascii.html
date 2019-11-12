@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>ASCII ART를 만들어 보세요.</h1>
+    <form action="/ascii/result">
+        <h3>step 1. 글자를 입력하세요.</h3>
+        <input type="text" name="text">
+        <h3>step 2. 폰트를 선택하세요.</h3>
+        <select name="font">
+            {% for font in fonts %}
+                <option value="{{ font }}">{{ font }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="submit" value="아스키 아트 만들기">
+    </form>
+</body>
+</html>
