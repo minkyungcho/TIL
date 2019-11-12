@@ -182,6 +182,7 @@ def winning(request):
 - 구현 화면
 <img src="../../img/django_day5_06.png">
 <img src="../../img/django_day5_07.png">
+
 ---
 ## ASCII ART
 - ascii art란?
@@ -259,6 +260,7 @@ urlpatterns = [
 - 구현 화면
 <img src="../../img/django_day5_04.png">
 <img src="../../img/django_day5_05.png">
+
 ---
 ## Fake OP.GG 만들기
 ~~~ python
@@ -267,7 +269,7 @@ INSTALLED_APPS = [
     'opgg'
 ]
 ~~~
-~~~python
+~~~ python
 # urls.py
 from opgg import views as opgg_views
 urlpatterns = [
@@ -310,7 +312,7 @@ def result(request):
     # return render(request, 'result.html', {'user_name': user_name, 'tier_rank':tier_rank})
     return render(request, 'search_result.html', result)
 ~~~
-~~~html
+~~~ html
 <!-- templates/opgg.html -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -331,7 +333,7 @@ def result(request):
 </body>
 </html>
 ~~~
-~~~html
+~~~ html
 <!-- templates/search_result.html -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -354,6 +356,7 @@ def result(request):
 - 구현 화면
 <img src="../../img/django_day5_08.png">
 <img src="../../img/django_day5_09.png">
+
 ---
 ### tip
 css selector
