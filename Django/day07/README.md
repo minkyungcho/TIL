@@ -55,7 +55,34 @@ USE_TZ = False # timezone 설정
 - `greeting`, `human.py` 생성
 
 ---
+## ORM
+- Object Relationship Mapping
+- DBMS를 활용하기 위해 사용하는 SQL을 python 문법으로 똑같이 사용할 수 있도록 하는 것.
+- [관련자료](https://velog.io/@kyusung/aboutORM)
+- 먼저 마이그레이션을 만들어 DB의 구조를 만들어 반영하고 마이그레이트로 실제 DB에 반영한다.
 
+- 'borads' application 생성
+`python3 manage.py startapp boards`
+~~~ python
+# boards/models.py
+from django.db import models
+
+# Create your models here.
+class Board(models.Model):
+    title = models.CharField(max_length=30)
+    contents = models.TextField()
+    creator = models.CharField(max_length=10, null=True)
+
+class Person(models.Model):
+    name = models.CharField(max_length=10)
+    age = models.IntegerField()
+    birth_day = models.CharField(max_length=8)
+~~~
+> [field 관련 자료](https://docs.djangoproject.com/en/2.2/ref/models/fields/)
+~~~ bash
+$ python3 manage.py makemigrations
+$ python3 manage.py migrate
+~~~
 
 #### sqlite3
 [다운로드](https://sqlitebrowser.org/dl/)
@@ -65,35 +92,35 @@ USE_TZ = False # timezone 설정
 ### board module 활용
 ~~~ bash 
 $ python manage.py shell
->>from boards.models import Board
->>Board
->>b1 = Board()
->>b1.title = '첫번째 제목'
->>b1.contents = '탄산수 시원해 좋아'
->>b1.creator = 'Ming'
->>print(b1)
->>print(b1.title)
->>print(b1.contents)
->>print(b1.creator)
->>b1.save() # save하기 전까지는 db에 저장되고 있지 않음.
+>> from boards.models import Board
+>> Board
+>> b1 = Board() # 실제 DB에 반영되지 않고 객체를 만들어 조작
+>> b1.title = '첫번째 제목'
+>> b1.contents = '탄산수 시원해 좋아'
+>> b1.creator = 'Ming'
+>> print(b1)
+>> print(b1.title)
+>> print(b1.contents)
+>> print(b1.creator)
+>> b1.save() # 실제 db에 반영. save하기 전까지는 db에 저장되고 있지 않음.
 
->>b2 = Board()
->>b2.title = '오레오는 맛있어'
->>b2.contents = '오래오래 오레오 먹을래오'
->>b2.creator = 'Ming'
->>b2.save()
+>> b2 = Board()
+>> b2.title = '오레오는 맛있어'
+>> b2.contents = '오래오래 오레오 먹을래오'
+>> b2.creator = 'Ming'
+>> b2.save()
 
->>Board.objects.all() # Board의 전체 리스트? 뽑아내기
->>Board.objects.all()[0] # 한개 board만
->>Board.objects.filter(title='오레오는 맛있어') # filter도 Queryset
+>> Board.objects.all() # Board의 전체 리스트? 뽑아내기
+>> Board.objects.all()[0] # 한개 board만
+>> Board.objects.filter(title='오레오는 맛있어') # filter도 Queryset
 <QuerySet [<Board: Board object (2)>]>
->>Board.objects.filter(title='오레오는 맛있어')[0] # 배열 한개만 뽑아서 사용해야함
+>> Board.objects.filter(title='오레오는 맛있어')[0] # 배열 한개만 뽑아서 사용해야함
 <Board: Board object (2)>
->>Board.objects.filter(title='오레오는 맛있어').first() # .last()
->>b1 = Board.objects.filter(title='오레오는 맛있어')[0]
->>print(b1.title) # b1 내용 바뀐것 확인
->>b_all = Board.objects.all()
->>for b in b_all:
+>> Board.objects.filter(title='오레오는 맛있어').first() # .last()
+>> b1 = Board.objects.filter(title='오레오는 맛있어')[0]
+>> print(b1.title) # b1 내용 바뀐것 확인
+>> b_all = Board.objects.all()
+>> for b in b_all:
 ...     print(b.title)
 ...
 첫번째 제목
