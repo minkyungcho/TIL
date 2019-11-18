@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="contianer">
+        <form action="{% url 'articles:update' article.id %}">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input name="title" type="text" class="form-control" id="title" value="{{article.title}}" placeholder="제목을 입력하세요.">
+            </div>
+            <div class="form-group">
+                <label for="contents">Contents</label>
+                <textarea name="contents" rows="5" class="form-control" id="contents" >{{article.contents}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="creator">Creator</label>
+                <input name="creator" type="text" class="form-control" id="creator" value="{{article.creator}}" readonly placeholder="작성자를 입력하세요.">
+            </div>
+            <button type="submit" class="btn btn-info">수정하기</button>
+        </form>
+    
+    </div>
+{% endblock %}
