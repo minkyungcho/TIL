@@ -1,5 +1,5 @@
 # Day8
-> 19.11.15 월
+> 19.11.15 금
 ### Yesterday review
 - Naver API 사용해보기
     - 외부 사이트에 Request를 보낼때, POST 방식으로 요청하는 방법 학습
