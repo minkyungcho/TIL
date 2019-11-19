@@ -414,7 +414,7 @@ def delete(request, id):
     return redirect('articles:index')
 ~~~
 
-## REATful api
+## RESTful api
 역할|Request-Method|<center>End-point</center>|Views(Function)
 :---:|:---:|:---|:---:
 Create|GET|/articles/new|new
