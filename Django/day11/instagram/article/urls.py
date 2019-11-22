@@ -3,6 +3,11 @@ from . import views as article_views
 
 urlpatterns = [
     path('', article_views.index, name="articles"),
+    # JS 
+    path('js-test', article_views.js_test),
+    # JQ
+    path('jq-test', article_views.jq_test),
+    
     path('articles/<int:article_id>/delete', article_views.delete, name="delete"),
     path('articles/<int:article_id>/edit', article_views.edit, name="edit"),
 

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <form class="mb-5 mt-5">
+        댓글쓰기
+        <input type="text" class="form-control" id="commentForm">
+        <button type="button" class="btn btn-primary" id="submitComment">댓글쓰기</button>
+    </form>
+    <div class="commnetList">
+        <ul class="list-group">
+            <li class="list-group-item" id="comment-1">
+                첫번째 댓글
+                <span class="float-right">
+                    <button type="button" class="btn btn-warning">수정</button>
+                    <button type="button" class="btn btn-danger delete-comment" value="1">삭제</button>
+                </span>
+            </li>
+            <li class="list-group-item" id="comment-2">
+                두번째 댓글
+                <span class="float-right">
+                    <button type="button" class="btn btn-warning">수정</button>
+                    <button type="button" class="btn btn-danger delete-comment" value="2">삭제</button>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+    <script>
+        $(document).on('ready', function () {
+            
+        })
+        $(function () {
+            // 댓글 달기
+            // 댓글쓰기 버튼이 눌렸을 때,
+            $('#submitComment').on('click', function(){
+                var input = $('#commentForm').val();
+                if(input == ''){
+                    alert('댓글을 입력하세요');
+                    return;
+                }
+                // ul.list-group에 붙여줌
+                var position = $('ul.list-group');
+                // list-group-item 요소를 만들어서
+                $('#commentForm').val('');
+                var element = 
+                `<li class="list-group-item" id="comment-1">
+                    ${input}
+                    <span class="float-right">
+                        <button type="button" class="btn btn-warning">수정</button>
+                        <button type="button" class="btn btn-danger delete-comment" value="1">삭제</button>
+                    </span>
+                </li>`
+
+                position.prepend(element);
+            })
+
+            // 댓글 삭제
+            // 이벤트가 발생할 요소를 찾고
+            $(document).on('click', '.delete-comment', function () {
+                // console.dir($(this));
+                var commentId = $(this).attr('value');
+                // console.log(commentId);
+                // 1. commentID로 삭제할 요소를 찾아서 지워줌
+                // $('#comment-' + commentId).remove();
+                // 2. 이벤트가 발생한 친구로부터 부모를 찾아 지원 
+                $(this).parents('.list-group-item').remove();
+                // console.log(this.attr('value')) // error
+                // console.dir(this);
+                // alert("댓글삭제!");
+            });
+            // 이벤트가 발생했을 경우 실행할 이벤트 핸들러를 만든다.
+
+        })
+    </script>
+</body>
+
+</html>
