@@ -1,5 +1,5 @@
 # Day14
-> 19.11.26 화
+> 19.11.25 월
 - 아이디어 구현에 필요한 기능을 우선으로
     - Map API, 날씨 API(js)
     - Pusher API(django + js)
