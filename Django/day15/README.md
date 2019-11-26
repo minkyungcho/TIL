@@ -42,7 +42,7 @@
 
 ---
 ## jQuery
-
+### 댓글 등록
 - `models.py`에 class 추가
 ~~~ python
 # models.py
@@ -178,7 +178,7 @@ def submit_boards(request):
 2. ajax로 서버에 요청을 보내 실제 DB에 반영되고 나면 
     - response가 올때까지 댓글이 달리지 않는다.
 
-- 삭제
+### 삭제
 - 삭제 버튼의 class 명 바꿔주기 `<button type="button" class="btn btn-danger deleteBoard" data-value="{{board.id}}">삭제</button>`
 - 어떤 댓글 삭제했는지 알기 위한 댓글 id를 변경 `<li class="list-group-item" id="board-{{board.id}}">`
 - `urls.py`에서 삭제를 위한 경로 생성해주기. 
@@ -269,6 +269,143 @@ def delete_boards(request):
         return HttpResponse(json.dumps(context), content_type="appication/json")
 ~~~
 
+### 수정
+
+- 수정 버튼을 누른다
+- 원래의 댓글 내용이 입력창에 들어간다.
+- 확인 버튼을 누르면 수정한 내용이 반영된다.
+    - 방법 1. 확인 버튼에 속성을 추가해서 제출할 때 해당 속성에 유무를 파악해 서로 다른 로직을 탈 수 있도록 한다.
+    - 방법 2. 수정할 때 ajax로 제출하는 url 부분을 변수(HTML 속성)로 만들어서 처리한다.
+
+- 수정 버튼 속성 변경하기 `<button type="button" class="btn btn-warning editBoard" data-id="{{board_id}}">수정</button>`
+~~~ html
+<form class="mb-5 mt-5" id="boardForm">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}" id="csrftoken">
+        댓글쓰기
+        <input type="text" class="form-control" id="boardInput">
+        <button type="submit" class="btn btn-primary" id="submitComment">확인</button>
+    </form>
+    <div class="commnetList">
+        <ul class="list-group">
+            {% for board in boards %}
+            <li class="list-group-item" id="board-{{board.id}}">
+                <span class="boardItem">{{ board.contents }}</span>
+                <span class="float-right">
+                    <button type="button" class="btn btn-warning editBoard" data-id="{{board.id}}">수정</button>
+                    <button type="button" class="btn btn-danger deleteBoard" data-id="{{board.id}}">삭제</button>
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+~~~
+~~~ javascript
+$(function () {
+    // 수정 버튼을 눌렀을 때 실제 DB에서 수정됨
+    // 수정 버튼을 찾아서 이벤트를 등록해야함.
+    $('.editBoard').on('click', function(){
+        var id = $(this).data('id'); // data-id="{{board_id}}"
+        var contents = $('#board-' + id + ' .boardItem').text();
+        $('#boardInput').val(contents); // input의 value를 contents로 채워준다.
+        
+    })
+        ...
+})
+~~~
+#### 방법 1
+- `urls.py` 에 `path('jq-test/boards/edit', article_views.edit_boards, name="edit_boards"),` 추가
+~~~ python
+# views.py
+def edit_boards(request):
+    if request.method == "POST":
+        id = request.POST["board_id"]
+        contents = request.POST["contents"]
+        board = Board.objects.get(id=id)
+        board.contents = contents
+        board.save()
+        return HttpResponse('', status=204) # 서버가 데이터를 받지 않고 성공.
+~~~
+~~~ html
+<!-- empty.html -->
+<li class="list-group-item" id="board-{{board.id}}">
+    <span class="boardItem">{{ board.contents }}</span>
+    <span class="float-right">
+        <button type="button" class="btn btn-warning editBoard" data-id="{{board.id}}">수정</button>
+        <button type="button" class="btn btn-danger deleteBoard" data-id="{{board.id}}">삭제</button>
+    </span>
+</li>
+~~~
+~~~ javascript
+$(function () {
+    // 수정 버튼을 눌렀을 때 실제 DB에서 수정됨
+    // 수정 버튼을 찾아서 이벤트를 등록해야함.
+    $(document).on('click', '.editBoard',function () {
+        var id = $(this).data('id'); // data-id="{{board_id}}"
+        var contents = $('#board-' + id + ' .boardItem').text();
+        $('#boardInput').val(contents); // input의 value를 contents로 채워준다.
+        $('#submitComment').data('method', 'edit'); // 속성에 data-method="edit"이 추가된다.
+        $('#submitComment').data('id', id); // 속성에 data-id="id"가 추가됨.
+        console.log($('#submitComment').data();
+    })
+
+    // 삭제 
+    ...
+
+    // 댓글 쓰고 DB에 등록
+    // boardForm이 제출되었을 때
+    $('#boardForm').on('submit', function (event) { // e : event
+        // 기존 이벤트를 삭제 해주어야 한다
+        event.preventDefault();
+        // 실제 DB에 등록 될 수 있게끔 ajax 요청을 만들어줌
+        var board = $('#boardInput').val();
+        // 등록 시에는 /insta/jq_test/boards
+        // 수정 시에는 /insta/jq_test/boards/edit
+        $('#boardInput').val('');
+        if($('#submitComment').data('method') == 'edit'){
+            var id = $('#submitComment').data('id');
+            $.ajax({
+                url: '{% url "edit_boards" %}', 
+                method: 'POST',
+                data: {
+                    board_id: id,
+                    contents: board,
+                    csrfmiddlewaretoken: '{{csrf_token}}'
+                },
+                success: function (data) {
+                    alert("수정 성공")
+                    // 뭘 찾아야함?
+                    $('#board-' + id + ' .boardItem').text(board);
+                    // 뭘 바꿔야함?
+                    // 확인 버튼에 달려있는 속성(data-method)을 삭제해야함.
+                    $('#submitComment').removeData('method');
+                },
+                error: function (data) {
+                    alert("수정 실패")
+                }
+            })
+        }else {
+            $.ajax({
+                url: '{% url "submit_boards" %}', // ''로 열었으면 "", ""로 열었으면 ''
+                method: 'POST',
+                data: {
+                    // key: value
+                    board: board,
+                    csrfmiddlewaretoken: '{{csrf_token}}'
+                },
+                success: function (data) {
+                    alert("성공")
+                    $('.list-group').prepend(data); // html data(댓글, empty.html)를 댓글 그룹에 붙여넣기
+                },
+                error: function (data) {
+                    alert("실패")
+                }
+            })
+        }
+    })
+})  
+~~~
+
+#### 방법 2
 
 
 ---
