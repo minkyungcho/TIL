@@ -12,27 +12,23 @@
 </head>
 
 <body>
-    <form class="mb-5 mt-5">
+    <form class="mb-5 mt-5" id="boardForm">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}" id="csrftoken">
         댓글쓰기
-        <input type="text" class="form-control" id="commentForm">
-        <button type="button" class="btn btn-primary" id="submitComment">댓글쓰기</button>
+        <input type="text" class="form-control" id="boardInput">
+        <button type="submit" class="btn btn-primary" id="submitComment">댓글쓰기</button>
     </form>
     <div class="commnetList">
         <ul class="list-group">
-            <li class="list-group-item" id="comment-1">
-                첫번째 댓글
+            {% for board in boards %}
+            <li class="list-group-item" id="board-{{board.id}}">
+                {{ board.contents }}
                 <span class="float-right">
                     <button type="button" class="btn btn-warning">수정</button>
-                    <button type="button" class="btn btn-danger delete-comment" value="1">삭제</button>
+                    <button type="button" class="btn btn-danger deleteBoard" data-value="{{board.id}}">삭제</button>
                 </span>
             </li>
-            <li class="list-group-item" id="comment-2">
-                두번째 댓글
-                <span class="float-right">
-                    <button type="button" class="btn btn-warning">수정</button>
-                    <button type="button" class="btn btn-danger delete-comment" value="2">삭제</button>
-                </span>
-            </li>
+            {% endfor %}
         </ul>
     </div>
 
@@ -47,33 +43,87 @@
     </script>
 
     <script>
+        $(function () {
+            // 삭제 버튼 눌렀을 때 실제로 DB에서 삭제시키기
+            // 삭제 버튼을 눌렀을 때
+            $(document).on('click', '.deleteBoard', function(){
+                // 해당 줄(list)을 하나 삭제해야함
+                var id = $(this).data('value'); // data-value="{{board.id}}"
+                // console.log(id); // 댓글 클릭할때마다 댓글의 id가 출력되는것 확인 1,2,3,...
+                // 실제로 DB에서 삭제하기.
+                $.ajax({
+                    url: '{% url "delete_boards" %}',
+                    method: 'POST',
+                    data: {
+                        board_id: id,
+                        csrfmiddlewaretoken: '{{csrf_token}}' // post로 보내주기 때문에 필요해
+                    },
+                    success: function(data) {
+                        alert("삭제 성공");
+                        $('#board-' + data.board_id).hide(); 
+                    },
+                    error: function(data) {
+                        alert("삭제 실패");
+                    }
+                })
+                // $('#board-' + id).hide(); // 눈에만 안보이게 하는것. 숨긴다. 새로고침하면 다시 생김.
+
+            })
+
+            // 댓글 쓰고 DB에 등록
+            // boardForm이 제출되었을 때
+            $('#boardForm').on('submit', function(event){ // e : event
+                // 기존 이벤트를 삭제 해주어야 한다
+                event.preventDefault();
+                // 실제 DB에 등록 될 수 있게끔 ajax 요청을 만들어줌
+                var board = $('#boardInput').val();
+                $('#boardInput').val('');
+                $.ajax({
+                    url: '{% url "submit_boards" %}', // ''로 열었으면 "", ""로 열었으면 ''
+                    method: 'POST',
+                    data: {
+                        // key: value
+                        board: board, 
+                        csrfmiddlewaretoken: '{{csrf_token}}'
+                    },
+                    success: function(data){
+                        alert("성공")
+                        $('.list-group').prepend(data); // html data(댓글, empty.html)를 댓글 그룹에 붙여넣기
+                    },
+                    error: function(data){
+                        alert("실패")
+                    }
+                })
+            })
+        })
+
         $(document).on('ready', function () {
             
         })
-        $(function () {
-            // 댓글 달기
-            // 댓글쓰기 버튼이 눌렸을 때,
-            $('#submitComment').on('click', function(){
-                var input = $('#commentForm').val();
-                if(input == ''){
-                    alert('댓글을 입력하세요');
-                    return;
-                }
-                // ul.list-group에 붙여줌
-                var position = $('ul.list-group');
-                // list-group-item 요소를 만들어서
-                $('#commentForm').val('');
-                var element = 
-                `<li class="list-group-item" id="comment-1">
-                    ${input}
-                    <span class="float-right">
-                        <button type="button" class="btn btn-warning">수정</button>
-                        <button type="button" class="btn btn-danger delete-comment" value="1">삭제</button>
-                    </span>
-                </li>`
+        // $(function () {
+        //     // 댓글 달기
+        //     // 댓글쓰기 버튼이 눌렸을 때,
+        //     $('#submitComment').on('click', function(){
+        //         var input = $('#commentForm').val();
+        //         if(input == ''){
+        //             alert('댓글을 입력하세요');
+        //             return;
+        //         }
+        //         // ul.list-group에 붙여줌
+        //         var position = $('ul.list-group');
+        //         // list-group-item 요소를 만들어서
+        //         $('#commentForm').val('');
+        //         var element = 
+        //         `<li class="list-group-item" id="comment-1">
+        //             ${input}
+        //             <span class="float-right">
+        //                 <button type="button" class="btn btn-warning">수정</button>
+        //                 <button type="button" class="btn btn-danger delete-comment" value="1">삭제</button>
+        //             </span>
+        //         </li>`
 
-                position.prepend(element);
-            })
+        //         position.prepend(element);
+        //     })
 
             // 댓글 삭제
             // 이벤트가 발생할 요소를 찾고
@@ -91,7 +141,7 @@
             });
             // 이벤트가 발생했을 경우 실행할 이벤트 핸들러를 만든다.
 
-        })
+        //})
     </script>
 </body>
 

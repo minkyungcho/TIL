@@ -7,6 +7,8 @@ urlpatterns = [
     path('js-test', article_views.js_test),
     # JQ
     path('jq-test', article_views.jq_test),
+    path('jq-test/boards/', article_views.submit_boards, name="submit_boards"),
+    path('jq-test/boards/delete', article_views.delete_boards, name="delete_boards"),
     
     path('articles/<int:article_id>/delete', article_views.delete, name="delete"),
     path('articles/<int:article_id>/edit', article_views.edit, name="edit"),
