@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .bg_red {
+            background-color: red;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <h1 id="title">오늘은 자바스크립트 수업 날입니다 :D</h1>
+    <h2 id="joke">자바 스크랩트는 우러ㅕ워</h2>
+    <div class="p-list">
+        <p class="element">1</p>
+        <p class="element">2</p>
+        <p class="element">3</p>
+        <p><span class="four">4</span></p>
+        <p>5</p>
+    </div>
+
+    <form class="mb-5 mt-5">
+        글쓰기
+        <input type="text" class="form-control" id="articleform">
+        <button type="button" class="btn btn-primary">글쓰기</button>
+        <div class="pb-5"></div>
+        댓글쓰기
+        <input type="text" class="form-control" id="commentForm">
+        <button type="button" class="btn btn-primary" id="submitComment">댓글쓰기</button>
+    </form>
+    <div class="commnetList">
+        <ul class="list-group">
+            <li class="list-group-item">
+                첫번째 댓글
+                <span class="float-right">
+                    <button type="button" class="btn btn-warning">수정</button>
+                </span>
+            </li>
+            <li class="list-group-item">
+                두번째 댓글
+                <span class="float-right">
+                    <button type="button" class="btn btn-warning">수정</button>
+                </span>
+            </li>
+            <li class="list-group-item">
+                세번째 댓글
+                <span class="float-right">
+                    <button type="button" class="btn btn-warning">수정</button>
+                </span>
+            </li>
+            <li class="list-group-item">
+                네번째 댓글
+                <span class="float-right">
+                    <button type="button" class="btn btn-warning">수정</button>
+                </span>
+            </li>
+
+        </ul>
+    </div>
+    <!-- 은근 용량이 큰 파일들이 많다. DOM이 다 읽힌 나중에. -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+    <script>
+        console.dir($);
+        var btn = document.getElementById('submitComment');
+        btn.addEventListener('click', function () {
+            // commentForm 에 있는 내용을 받아서
+            var commentForm = document.getElementById('commentForm');
+            if (commentForm.value == '') {
+                alert('빈칸은 입력 할 수 없습니다.');
+                return;
+            }
+            // console.dir(commentForm)
+            // alert 혹은 console에 출력
+            console.log(commentForm.value);
+            // 댓글을 추가할 위치를 찾아서
+            var position = document.querySelector('.list-group');
+            // console.dir(position)
+            // 추가할 HTML 태그 ㅇ모양을 잡고
+            var appendingTag = document.createElement('li');
+            var appendingSpan = document.createElement('span');
+
+            appendingTag.classList.add('list-group-item');
+            appendingSpan.classList.add('float-right');
+
+            appendingTag.innerText = commentForm.value;
+            appendingSpan.innerHTML = '<button type="button" class="btn btn-warning">수정</button>'
+            appendingTag.appendChild(appendingSpan);
+
+            commentForm.value = '';
+            // console.dir(appendingTag);
+            // `<li class="list-group-item">
+            //     추가한 댓글
+            //     <span class="float-right">
+            //         <button type="button" class="btn btn-warning">수정</button>
+            //     </span>
+            // </li>`
+            // 해당 위치에 추가
+            // appendChild vs prepend
+            position.prepend(appendingTag);
+        })
+
+        // var joke = document.getElementById('joke'); // id로 요소 찾아서 변수에 저장
+        // joke.onclick = function(){
+        //     alert("아니? 쉬워!");
+        // }
+        // joke.addEventListener('click', function(){
+        //     alert("배고파");
+        // }) // 이벤트를 입힌다
+
+        var pList = document.getElementsByTagName('p');
+        // console.log(pList);
+        var pList2 = document.querySelectorAll('p');
+        // console.log(pList2)
+        pList2.forEach(function (element) {
+            element.addEventListener('click', function () {
+                // if(element.classList.contains('alert alert-danger')){
+                element.classList.toggle('alert');
+                element.classList.toggle('alert-danger');
+                // }else {
+                // element.classList.toggle('alert alert-danger', true)
+                // }
+                // element.setAttribute('class', 'alert alert-danger');
+                // if(confirm("이 태그 내용을 출력하시겠습니까?")){
+                //     alert(element.innerHTML);
+                // }
+                console.dir(element);
+                // if(confirm("이 태그를 삭제하시겠습니까?")){
+
+                //element.classList.remove('bg_red');
+                // element.setAttribute('style', 'display:none;')
+                // }
+            })
+        })
+        // for(var i=0; i<pList.length; i++){
+        //     pList[i].addEventListener('click', function(){
+        //         alert("이건 될걸?");
+        //     })
+        // }
+        // pList.addEventListener('click', function(){
+        //     alert("아마 안뜰걸?");
+        // })
+    </script>
+</body>
+
+</html>

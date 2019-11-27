@@ -1,0 +1,8 @@
+<li class="list-group-item"><i class="fas fa-comment-dots"></i> <span class="commentItem">{{comment.contents}}</span>
+    <sapn class="float-right">
+        <a href="{% url 'edit_comments' comment.id %}" class="btn btn-warning editComment" data-id="{{comment.id}}"><i
+                class="far fa-edit"></i> 수정</a>
+        <a href="{% url 'delete_comments' comment.id %}" class="btn btn-danger deleteComment" data-id="{{comment.id}}"><i
+                class="far fa-trash-alt"></i> 삭제</a>
+    </sapn>
+</li>

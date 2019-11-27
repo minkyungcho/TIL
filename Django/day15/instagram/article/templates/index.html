@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<style>
+    .container {
+        padding: 10rem !important;
+        padding: 10rem !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <form action="{% url 'articles' %}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+            <div class="card-body">
+                <textarea class="form-control" rows="5" name="contents"></textarea>
+                <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input multiple name="image" type="file" class="custom-file-input" id="inputGroupFile01"
+                            aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <input type="submit" class="btn btn-success" value="작성하기">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    {% for article in articles %}
+    <div class="row mt-4">
+        <div class="card col-12">
+            {% if article.article_images %}
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carlousel">
+                <div class="carousel-inner">
+                    {% for image in article.article_images %}
+                    <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
+                        <img src="{{image.image_thumbnail.url}}" alt="..." class="d-block w-100">
+                    </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            {% endif %}
+            <div class="card-body" style="min-height: 9rem;">
+                <p class="card-text">{{article.contents}}</p>
+            </div>
+            <div class="text-center">
+                <a href="{% url 'edit' article.id %}" class="btn btn-warning"><i class="far fa-edit"></i></a>
+                <a href="{% url 'delete' article.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+            </div>
+            <ul class="list-group list-group-flush" id="comment-list-group-{{article.id}}">
+                <li class="list-group-item">
+                    <form class="commentForm" id="commentForm-{{article.id}}">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}" id="csrftoken">
+                        <input type="hidden" class="articleId" name="article_id" value="{{article.id}}">
+                        <input type="hidden" class="formMethod" name="form_method" value="create">
+                        <input type="hidden" class="commentId" name="comment_id">
+                        <div class="row">
+                            <div class="col-9 ">
+                                <input type="text" class="form-control commentInput" name="contents">
+                            </div>
+                            <div class="col-3 text-right">
+                                <input type="submit" class="btn btn-info" value="쓰기"></button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                {% for comment in article.comments %}
+                <li class="list-group-item" id="comment-{{comment.id}}">
+                    <i class="fas fa-comment-dots"></i> 
+                    <span class="contents">
+                        {{comment.contents}}
+                    </span>
+                    <sapn class="float-right">
+                        <button data-id="{{comment.id}}" data-contents="{{comment.contents}}" data-article-id="{{article.id}}" class="btn btn-warning editComment"><i class="far fa-edit"></i> 수정</button>
+                        <button data-id="{{comment.id}}" class="btn btn-danger deleteComment"><i class="far fa-trash-alt"></i> 삭제</button>
+                    </sapn>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(function() {
+        // 댓글 등록 create comment
+        // form으로부터 내용을 받아서 코멘트를 작성한다.
+        // article별로 있는 form으로부터
+        // submit이라는 이벤트에
+        $(document).on('submit', '.commentForm', function(e){
+            e.preventDefault();
+            console.log("done");
+            // 해당 form에 있는 input중에서 텍스트를 입력한 input으로부터
+            // console.log($(this).find('input.commentInput').val()); // 현재 있는 element의 자식 중에서 'input'으로 있는 애들 찾기
+            // var contents = $(this).find('input.commentInput').val(); // 현재 있는 element의 자식 중에서 'input'으로 있는 애들 찾기
+            console.log($(this).serialize()); // form안에 있는 모든 input 태그와 그 value들을 가져온다.
+            var data = $(this).serialize();
+            $(this).find('input.commentInput').val(''); // 공백으로 바꿔주기
+            // 어떤 article에 대한 댓글인지 알아야함
+            // console.log($(this).find('input.articleId').val());
+            // var id = $(this).find('input.articleId').val();
+            // var method = $(this).find('input.formMethod').val();
+            // return;
+            // 내용을 받아서 create comment 역할을 하는 url로 요청을 보낸다.
+            $.ajax({
+                url: '{% url "comments" %}',
+                method: 'POST',
+                data: data,
+                // data: {
+                //     contents: contents,
+                //     article_id: id,
+                //     csrfmiddlewaretoken: ''
+                // },
+                // 정상적인 callback이 오면, 위에서 받아둔 텍스트를 바탕으로
+                success: function(data){
+                    console.log("성공");
+                    console.log(data);
+                    if(data.method == "edit"){
+                        $('#commentForm-' + data.article_id + ' .formMethod').val("create");
+                        $('#comment-' + data.comment_id + ' .contents').text(data.comment);
+                        // console.log($('#comment-' + data.comment_id + ' .editComment').data());
+                        console.log($('#comment-' + data.comment_id + ' .editComment').data('contents', data.comment));
+                        // console.log($('#comment-' + data.comment_id + ' .editComment').data());
+                    } else{
+                        var comment = `
+                            <li class="list-group-item" id="comment-${data.comment_id}">
+                                <i class="fas fa-comment-dots"></i> 
+                                    <span class="contents">
+                                    ${data.comment}
+                                    </span>
+                                <sapn class="float-right">
+                                    <button data-id="${data.comment_id}" data-contents="${data.comment}" data-article-id="${data.article_id}" class="btn btn-warning editComment"><i class="far fa-edit"></i> 수정</button>
+                                    <button data-id="${data.comment_id}" class="btn btn-danger deleteComment"><i class="far fa-trash-alt"></i> 삭제</button>
+                                </sapn>
+                            </li>
+                        `
+                        // 새로운 댓글 element 를 추가한다.
+                        $('#comment-list-group-' + data.article_id).append(comment);
+                    }
+                },
+                error: function(data){
+                    console.log("실패");
+                }
+            })
+        })
+
+        // delete comment
+        // 삭제 버튼을 누르면 해당 element가 삭제된다.
+        // 삭제 버튼을 찾는다.
+        $(document).on('click', '.deleteComment', function(){
+            // 삭제 버튼에 click 이벤트를 먹인다.(리스너와 핸들러)
+            // console.log("click");
+
+            // 해당 element가 가지고 있는 유일한 값을 통해
+            // console.log($(this).data());
+            var comment_id = $(this).data('id');
+
+            // id를 가지고 DB에서 삭제될 수 있도록 요청 
+            $.ajax({
+                url: '{% url "delete_comments" %}',
+                method: 'POST',
+                data: {
+                    comment_id: comment_id,
+                    csrfmiddlewaretoken: '{{csrf_token}}'
+                },
+                success: function(data){
+                    console.log("삭제 성공");
+                    // 요청이 정상적으로 처리되면 해당 element 삭제
+                    $('#comment-' + comment_id).remove();
+                },
+                error: function(data){
+                    console.log("삭제 실페");
+                }
+            })
+        })
+
+        // update comment
+        // 기존에 있던 내용을 해당 댓글을 다는 form으로 이동시켜
+        // 내용을 바꾸고 실제로 DB에 반영한다.
+
+        // edit 버튼을 누르면 
+        $(document).on('click', '.editComment', function(){
+            // 해당 댓글이 가지고 있던 내용을
+            var contents = $(this).data("contents");
+            // 입력창으로 이동시키고,
+            var article_id = $(this).data("article-id");
+            // console.log(article_id);
+            var comment_id = $(this).data("id");
+            $('#commentForm-' + article_id + ' .commentInput').val(contents);
+            $('#commentForm-' + article_id + ' .formMethod').val("edit");
+            $('#commentForm-' + article_id + ' .commentId').val(comment_id);
+
+        })
+
+
+        // 바뀐 내용을 submit하면
+
+        // 실제 server에 반영 시키고
+
+        // 바뀐 내용으로 해당 댓글을 변경
+
+
+    })
+</script>
+{% endblock %}
