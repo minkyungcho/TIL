@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
     <div class="card">
-        <form action="{% url 'edit_article' article.id %}" method="POST">
+        <form action="{% url 'edit' article.id %}" method="POST">
             <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
             <div class="card-body">
                 <textarea class="form-control" rows="5" name="contents">{{article.contents}}</textarea>

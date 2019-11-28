@@ -17,6 +17,8 @@
             <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
             <div class="card-body">
                 <textarea class="form-control" rows="5" name="contents"></textarea>
+                <!-- 해쉬태그 HashTag -->
+                <input placeholder="Insert HashTag" type="text" class="form-control mt-3" name="hashtag">
                 <div class="input-group mt-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
@@ -60,10 +62,28 @@
             {% endif %}
             <div class="card-body" style="min-height: 9rem;">
                 <p class="card-text">{{article.contents}}</p>
+                {% for tag in article.tags.all %}
+                    <span class="badge badge-info">#{{tag.tag}}</span>
+                {% endfor %}
             </div>
             <div class="text-center">
+                <div class="row float-right">
+                    <span class="mute">created by {{article.user.username}}</span>
+                </div>
+                <!-- 좋아요 버튼 -->
+                {% if user in article.user_likes.all %}
+                <button type="button" class="btn btn-success likes" data-article-id="{{article.id}}">
+                    <i class="far fa-heart"></i> {{len(article.user_likes.all)}}
+                </button>
+                {% else %}
+                <button type="button" class="btn btn-secondary likes" data-article-id="{{article.id}}">
+                    <i class="far fa-heart"></i>
+                </button>
+                {% endif %}
+                {% if article.user_id == user.id %}
                 <a href="{% url 'edit' article.id %}" class="btn btn-warning"><i class="far fa-edit"></i></a>
                 <a href="{% url 'delete' article.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                {% endif %}
             </div>
             <ul class="list-group list-group-flush" id="comment-list-group-{{article.id}}">
                 <li class="list-group-item">
@@ -84,14 +104,17 @@
                 </li>
                 {% for comment in article.comments %}
                 <li class="list-group-item" id="comment-{{comment.id}}">
-                    <i class="fas fa-comment-dots"></i> 
-                    <span class="contents">
-                        {{comment.contents}}
+                    <i class="fas fa-comment-dots"></i>
+                    <span>{{comment.user.username}} - </span><span class="contents">{{comment.contents}}</span>
+                    <span class="float-right">
+                        {% if comment.user_id == user.id %}
+                        <button data-id="{{comment.id}}" data-contents="{{comment.contents}}"
+                            data-article-id="{{article.id}}" class="btn btn-warning editComment"><i
+                                class="far fa-edit"></i> 수정</button>
+                        <button data-id="{{comment.id}}" class="btn btn-danger deleteComment"><i
+                                class="far fa-trash-alt"></i> 삭제</button>
+                        {% endif %}
                     </span>
-                    <sapn class="float-right">
-                        <button data-id="{{comment.id}}" data-contents="{{comment.contents}}" data-article-id="{{article.id}}" class="btn btn-warning editComment"><i class="far fa-edit"></i> 수정</button>
-                        <button data-id="{{comment.id}}" class="btn btn-danger deleteComment"><i class="far fa-trash-alt"></i> 삭제</button>
-                    </sapn>
                 </li>
                 {% endfor %}
             </ul>
@@ -103,12 +126,40 @@
 
 {% block script %}
 <script>
-    $(function() {
+    $(function () {
+        // 좋아요 버튼 클릭
+        $('.likes').on('click', function () {
+            var button = $(this);
+            console.log("좋아용");
+            var article_id = $(this).data('article-id');
+            console.log(article_id);
+            $.ajax({
+                url: '{% url "likes" %}',
+                method: 'POST',
+                data: {
+                    article_id: article_id,
+                    csrfmiddlewaretoken: '{{csrf_token}}'
+                },
+                success: function(data) {
+                    console.log("성공");
+                    console.log(data);
+                    button.toggleClass(['btn-secondary', 'btn-success']);
+                },
+                error: function(data) {
+                    if(data.status == 403){
+                        location.href = "{% url 'accounts:login' %}"
+                    }
+                    console.log("실패");
+                }
+            })
+        })
+
+
         // 댓글 등록 create comment
         // form으로부터 내용을 받아서 코멘트를 작성한다.
         // article별로 있는 form으로부터
         // submit이라는 이벤트에
-        $(document).on('submit', '.commentForm', function(e){
+        $(document).on('submit', '.commentForm', function (e) {
             e.preventDefault();
             console.log("done");
             // 해당 form에 있는 input중에서 텍스트를 입력한 input으로부터
@@ -133,20 +184,21 @@
                 //     csrfmiddlewaretoken: ''
                 // },
                 // 정상적인 callback이 오면, 위에서 받아둔 텍스트를 바탕으로
-                success: function(data){
+                success: function(data) {
                     console.log("성공");
                     console.log(data);
-                    if(data.method == "edit"){
+                    if (data.method == "edit") {
                         $('#commentForm-' + data.article_id + ' .formMethod').val("create");
                         $('#comment-' + data.comment_id + ' .contents').text(data.comment);
                         // console.log($('#comment-' + data.comment_id + ' .editComment').data());
-                        console.log($('#comment-' + data.comment_id + ' .editComment').data('contents', data.comment));
+                        console.log($('#comment-' + data.comment_id + ' .editComment').data(
+                            'contents', data.comment));
                         // console.log($('#comment-' + data.comment_id + ' .editComment').data());
-                    } else{
+                    } else {
                         var comment = `
                             <li class="list-group-item" id="comment-${data.comment_id}">
                                 <i class="fas fa-comment-dots"></i> 
-                                    <span class="contents">
+                                <span>${data.username} - </span><span class="contents">
                                     ${data.comment}
                                     </span>
                                 <sapn class="float-right">
@@ -159,7 +211,10 @@
                         $('#comment-list-group-' + data.article_id).append(comment);
                     }
                 },
-                error: function(data){
+                error: function (data) {
+                    if (data.status == 401) {
+                        location.href = '{% url "accounts:login" %}';
+                    }
                     console.log("실패");
                 }
             })
@@ -168,7 +223,7 @@
         // delete comment
         // 삭제 버튼을 누르면 해당 element가 삭제된다.
         // 삭제 버튼을 찾는다.
-        $(document).on('click', '.deleteComment', function(){
+        $(document).on('click', '.deleteComment', function () {
             // 삭제 버튼에 click 이벤트를 먹인다.(리스너와 핸들러)
             // console.log("click");
 
@@ -184,12 +239,12 @@
                     comment_id: comment_id,
                     csrfmiddlewaretoken: '{{csrf_token}}'
                 },
-                success: function(data){
+                success: function (data) {
                     console.log("삭제 성공");
                     // 요청이 정상적으로 처리되면 해당 element 삭제
                     $('#comment-' + comment_id).remove();
                 },
-                error: function(data){
+                error: function (data) {
                     console.log("삭제 실페");
                 }
             })
@@ -200,7 +255,7 @@
         // 내용을 바꾸고 실제로 DB에 반영한다.
 
         // edit 버튼을 누르면 
-        $(document).on('click', '.editComment', function(){
+        $(document).on('click', '.editComment', function () {
             // 해당 댓글이 가지고 있던 내용을
             var contents = $(this).data("contents");
             // 입력창으로 이동시키고,
