@@ -10,7 +10,7 @@ class Room(models.Model):
     master = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="rooms") # user.roome
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="rooms") # user.rooms
 
 class Message(models.Model):
     # 메시지의 type을 정해준다.
