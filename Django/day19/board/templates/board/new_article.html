@@ -2,7 +2,7 @@
 {% load bootstrap4 %}
 {% block content %}
 <h1>New Article</h1>
-<form method="POST">
+<form action="{% url 'board:new_article' %}" method="POST">
     {% csrf_token %}
     {% bootstrap_form form%}
     
