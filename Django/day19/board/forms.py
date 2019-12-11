@@ -11,10 +11,16 @@ class ArticleForm(forms.ModelForm):
     keyword = forms.CharField(min_length=1, max_length=10)
     class Meta:
         model = Article
-        fields = '__all__' # 모든 컬럼
+        # fields = '__all__' # 모든 컬럼
         # 원하는 컬럼만 표현하고 싶을때
         # fields = ('title', 'content')
         # 
         ###########################3
         # date만 빼고 싶을때 
-        exclude = ['datetime',]
+        exclude = ['datetime','author','like_users']
+
+class CommentForm(forms.ModelForm):
+    content = forms.CharField(min_length=1, max_length=200)
+    class Meta:
+        model = Comment
+        fields = ['content', ]

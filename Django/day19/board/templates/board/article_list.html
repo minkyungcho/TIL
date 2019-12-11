@@ -3,6 +3,7 @@
 {% block content %}
 
 <h1>Article List</h1>
+<h2><a href="{% url 'board:new_article' %}">New Article</a></h2>
 <ul>
     {% for article in articles %}
     <li>
@@ -12,4 +13,4 @@
     </li>
     {% endfor %}
 </ul>
-{% endblock %}
+{% endblock content %}

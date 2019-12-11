@@ -1,6 +1,16 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login, logout as auth_logout
+
 from .forms import CustomAuthenticationForm, CustomUserCreationForm
+
+def follow(request, user_id):
+    fan = request.user
+    star = get_object_or_404(id=user_id)
+    if fan.stars.filter(id=star.id).exists():
+        fan.stars.remove(star)
+    else:
+        fan.stars.add(star)
+    return redirect('accounts:user_detail', star.id)
 
 def signup(request):
     if not request.user.is_authenticated:

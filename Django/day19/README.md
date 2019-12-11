@@ -75,7 +75,7 @@ A. 결국 남들도 사용할 수 있도록 하려고!
 
 
 #### email 검증
-`from django.core.validators import EmainValidator`를 통해 이메일 검증을 할 수 있지만 모델링이 복잡해진다.
+`from django.core.validators import EmailValidator`를 통해 이메일 검증을 할 수 있지만 모델링이 복잡해진다.
 
 - `touch board/forms.py`
 ~~~ python
@@ -353,3 +353,93 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 > 비밀번호 암호화 -> SHA
 브라우저 기준으로 쿠키에 로그인 정보가 저장되어 있음.
 
+
+
+
+# Day 22
+> 19.12.5 목
+
+### follower, following
+- `accounts/models.py` User class에 fans 추가
+- `board/models.py` Article class like_users author, comment class author, article
+- 
+
+# Day 23
+> 19.12.6 금
+
+### HEROKU
+#### 배포 준비
+
+- [HEROKU 공식홈페이지](https://www.heroku.com/) 에서 회원가입.
+- [heroku-cli 다운로드페이지](https://devcenter.heroku.com/articles/heroku-cli) 에서 다운로드
+
+
+
+~~~ sh
+$ pip uninstall django
+$ pip install django==2.2.7
+
+~~~
+
+`settings.py`
+
+~~~ python
+DEBUG = True # False
+
+ALLOWED_HOSTS = ["127.0.0.1", ""]
+~~~
+
+- vscode, venv, db, pycache 
+- git init
+- git add
+- git commit -m "ready to deploy"
+- pip install django_heroku
+- mac : brew install postgresql
+
+> ```bash
+> /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+> ```
+
+`swttings.py`
+
+~~~ python
+...
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+import django_heroku
+django_heroku.settings(locals())
+~~~
+
+- touch Procfile 
+
+  ​	- 어떤 웹서버를 쓸지 webservergatewayi!
+
+~~~
+web: gunicorn data.wsgi --log-file -
+~~~
+
+- pip install gunicorn
+- touch runtime.txt
+- python - V 파이썬 버전 확인
+
+`runtime.txt`
+
+~~~ txt
+python-3.7.3
+~~~
+
+- pip freeze > requirements.txt
+- heroku
+- heroku create OOTD~~
+- git remote -v 
+- heroku config:set DEBUG=False
+- git push heroku master
+- 
+
+
+
+
+
+---
+### tip
+k-mooc : 대학강의들 올라와있는 사이트
